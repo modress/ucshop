@@ -2,280 +2,310 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KABAN UC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KABAN UC SHOP</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --accent-green: #2ed573;
-            --accent-blue: #1e90ff;
-            --text-color: #ffffff;
+            --bg-color: #0f1015;
+            --card-bg: #181a20;
+            --card-border: #2b2f3a;
+            --accent-yellow: #ffb703;
+            --accent-blue: #0088cc;
+            --accent-green: #2ecc71;
+            --text-main: #ffffff;
+            --text-sub: #a0a5b5;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 15px;
-            box-sizing: border-box;
+            padding: 12px;
+            padding-bottom: 90px;
         }
 
         .header {
             text-align: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
-            margin-bottom: 15px;
+            padding: 10px 0 15px;
         }
 
         .header h1 {
             margin: 0;
-            color: var(--accent-green);
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffb703, #ff8200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
+        /* Крупные переключатели разделов */
+        .main-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .tab-btn {
+        .main-tab-btn {
             background: var(--card-bg);
-            color: #fff;
-            border: 1px solid #333;
-            padding: 8px 14px;
-            border-radius: 8px;
-            white-space: nowrap;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .tab-btn.active {
-            background: var(--accent-green);
-            color: #000;
-            border-color: var(--accent-green);
-        }
-
-        .tab-btn.blue.active {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: #fff;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .item-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a2a2a;
-        }
-
-        .item-title {
-            font-weight: bold;
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
             font-size: 16px;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .item-price {
+        .main-tab-btn.active-pubg {
+            border-color: var(--accent-yellow);
+            color: var(--accent-yellow);
+            background: rgba(255, 183, 3, 0.1);
+        }
+
+        .main-tab-btn.active-tg {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: rgba(0, 136, 204, 0.1);
+        }
+
+        /* Сетка крупных карточек */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .card-price {
+            font-size: 18px;
+            font-weight: 800;
             color: var(--accent-green);
-            font-weight: bold;
+            margin-bottom: 12px;
         }
 
-        .buy-btn {
-            background: var(--accent-green);
-            color: #000;
+        .btn-buy {
+            width: 100%;
+            background: linear-gradient(180deg, #2ecc71, #27ae60);
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
+            color: #000;
+            padding: 10px 0;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 14px;
             cursor: pointer;
         }
 
-        .buy-btn.blue {
-            background: var(--accent-blue);
-            color: #fff;
-        }
-
-        .footer-nav {
+        /* Модальное окно выбора оплаты */
+        .modal {
+            display: none;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid #333;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 20px;
         }
 
-        .footer-btn {
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .pay-option {
+            width: 100%;
+            background: #232733;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .pay-option.sbp { border-color: #00b0ff; }
+        .pay-option.crypto { border-color: #f7931a; }
+        .pay-option.stars { border-color: #ffb703; }
+
+        .close-btn {
             background: none;
             border: none;
-            color: #888;
-            font-size: 12px;
+            color: var(--text-sub);
+            font-size: 14px;
+            margin-top: 10px;
             cursor: pointer;
-        }
-
-        .footer-btn.active {
-            color: var(--accent-green);
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>🐗 KABAN UC</h1>
-        <p style="margin: 5px 0 0; color: #888; font-size: 13px;">Добро пожаловать в магазин!</p>
+        <h1>🐗 KABAN SHOP</h1>
     </div>
 
-    <!-- Вкладки навигации -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('uc')">Купить UC</button>
-        <button class="tab-btn" onclick="switchTab('plus')">Plus Подписка</button>
-        <button class="tab-btn" onclick="switchTab('code')">Код на UC</button>
-        <button class="tab-btn blue" onclick="switchTab('stars')">Звёзды / Premium</button>
+    <!-- Вкладки PUBG / Telegram -->
+    <div class="main-tabs">
+        <div id="tab-pubg" class="main-tab-btn active-pubg" onclick="switchSection('pubg')">🎮 PUBG Mobile</div>
+        <div id="tab-tg" class="main-tab-btn" onclick="switchSection('tg')">✈️ Telegram</div>
     </div>
 
-    <!-- Разделы товаров -->
-    <div id="sec-uc" class="section active">
-        <div class="item-card">
-            <div>
-                <div class="item-title">60 UC</div>
-                <div class="item-price">90 ₽</div>
-            </div>
-            <button class="buy-btn" onclick="buyItem('60 UC')">Купить</button>
+    <!-- РАЗДЕЛ PUBG MOBILE -->
+    <div id="sec-pubg" class="products-grid">
+        <div class="card">
+            <div class="card-icon">💵</div>
+            <div class="card-title">60 UC</div>
+            <div class="card-price">95 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('60 UC', 95)">Купить</button>
         </div>
-        <div class="item-card">
-            <div>
-                <div class="item-title">325 UC</div>
-                <div class="item-price">450 ₽</div>
-            </div>
-            <button class="buy-btn" onclick="buyItem('325 UC')">Купить</button>
+        <div class="card">
+            <div class="card-icon">💵</div>
+            <div class="card-title">325 UC</div>
+            <div class="card-price">480 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('325 UC', 480)">Купить</button>
         </div>
-        <div class="item-card">
-            <div>
-                <div class="item-title">660 UC</div>
-                <div class="item-price">890 ₽</div>
-            </div>
-            <button class="buy-btn" onclick="buyItem('660 UC')">Купить</button>
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <div class="card-title">660 UC</div>
+            <div class="card-price">890 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('660 UC', 890)">Купить</button>
         </div>
-    </div>
-
-    <div id="sec-plus" class="section">
-        <div class="item-card">
-            <div>
-                <div class="item-title">PUBG Prime Plus (1 мес)</div>
-                <div class="item-price">990 ₽</div>
-            </div>
-            <button class="buy-btn" onclick="buyItem('Prime Plus')">Купить</button>
+        <div class="card">
+            <div class="card-icon">👑</div>
+            <div class="card-title">Prime Plus</div>
+            <div class="card-price">990 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('PUBG Prime Plus', 990)">Купить</button>
         </div>
-    </div>
-
-    <div id="sec-code" class="section">
-        <div class="item-card">
-            <div>
-                <div class="item-title">Промокод 60 UC</div>
-                <div class="item-price">95 ₽</div>
-            </div>
-            <button class="buy-btn" onclick="buyItem('Код 60 UC')">Купить</button>
+        <div class="card">
+            <div class="card-icon">🎟</div>
+            <div class="card-title">Код 60 UC</div>
+            <div class="card-price">100 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('Код 60 UC', 100)">Купить</button>
+        </div>
+        <div class="card">
+            <div class="card-icon">🎟</div>
+            <div class="card-title">Код 325 UC</div>
+            <div class="card-price">500 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('Код 325 UC', 500)">Купить</button>
         </div>
     </div>
 
-    <div id="sec-stars" class="section">
-        <div class="item-card">
-            <div>
-                <div class="item-title">50 Telegram Stars</div>
-                <div class="item-price">120 ₽</div>
-            </div>
-            <button class="buy-btn blue" onclick="buyItem('50 Stars')">Купить</button>
+    <!-- РАЗДЕЛ TELEGRAM -->
+    <div id="sec-tg" class="products-grid" style="display: none;">
+        <div class="card">
+            <div class="card-icon">⭐️</div>
+            <div class="card-title">50 Stars</div>
+            <div class="card-price">120 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('50 Telegram Stars', 120)">Купить</button>
         </div>
-        <div class="item-card">
-            <div>
-                <div class="item-title">Telegram Premium (3 мес)</div>
-                <div class="item-price">1490 ₽</div>
-            </div>
-            <button class="buy-btn blue" onclick="buyItem('TG Premium 3M')">Купить</button>
+        <div class="card">
+            <div class="card-icon">⭐️</div>
+            <div class="card-title">100 Stars</div>
+            <div class="card-price">230 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('100 Telegram Stars', 230)">Купить</button>
         </div>
-    </div>
-
-    <!-- Профиль -->
-    <div id="sec-profile" class="section">
-        <div style="background: var(--card-bg); padding: 15px; border-radius: 12px;">
-            <h3>Профиль</h3>
-            <p id="user-info">Загрузка данных...</p>
+        <div class="card">
+            <div class="card-icon">⭐</div>
+            <div class="card-title">500 Stars</div>
+            <div class="card-price">1100 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('500 Telegram Stars', 1100)">Купить</button>
         </div>
-    </div>
-
-    <!-- Поддержка -->
-    <div id="sec-support" class="section">
-        <div style="background: var(--card-bg); padding: 15px; border-radius: 12px; text-align: center;">
-            <h3>Служба поддержки</h3>
-            <p>По всем вопросам обращайтесь к нашему менеджеру:</p>
-            <a href="https://t.me/neleron" style="color: var(--accent-green); font-weight: bold; font-size: 18px; text-decoration: none;">@neleron</a>
+        <div class="card">
+            <div class="card-icon">💎</div>
+            <div class="card-title">Premium 3 мес</div>
+            <div class="card-price">1490 ₽</div>
+            <button class="btn-buy" onclick="openPayModal('TG Premium 3 мес', 1490)">Купить</button>
         </div>
     </div>
 
-    <br><br><br>
+    <!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
+    <div id="payModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="margin-top:0;">Выберите способ оплаты</h3>
+            <p id="modalSub" style="color:var(--text-sub); font-size:14px; margin-bottom:20px;"></p>
 
-    <!-- Нижняя панель -->
-    <div class="footer-nav">
-        <button class="footer-btn active" onclick="switchTab('uc')">🛒 Магазин</button>
-        <button class="footer-btn" onclick="switchTab('profile')">👤 Профиль</button>
-        <button class="footer-btn" onclick="switchTab('support')">👨‍💻 Поддержка</button>
+            <button class="pay-option sbp" onclick="submitOrder('sbp')">🏦 СБП (Система быстрых платежей)</button>
+            <button class="pay-option crypto" onclick="submitOrder('crypto')">⚡️ Crypto Bot (USDT/TON)</button>
+            <button class="pay-option stars" onclick="submitOrder('stars')">⭐️ Telegram Stars</button>
+
+            <button class="close-btn" onclick="closePayModal()">Отмена</button>
+        </div>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачивает Mini App на весь экран
+        tg.expand();
 
-        // Вывод профиля из Telegram API
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            const u = tg.initDataUnsafe.user;
-            document.getElementById('user-info').innerHTML = `
-                <b>Имя:</b> ${u.first_name}<br>
-                <b>Username:</b> @${u.username || 'нет'}<br>
-                <b>ID:</b> ${u.id}
-            `;
-        } else {
-            document.getElementById('user-info').innerHTML = "Открыто вне Telegram";
+        let selectedItem = "";
+        let selectedPrice = 0;
+
+        function switchSection(sec) {
+            document.getElementById('sec-pubg').style.display = sec === 'pubg' ? 'grid' : 'none';
+            document.getElementById('sec-tg').style.display = sec === 'tg' ? 'grid' : 'none';
+
+            document.getElementById('tab-pubg').className = 'main-tab-btn ' + (sec === 'pubg' ? 'active-pubg' : '');
+            document.getElementById('tab-tg').className = 'main-tab-btn ' + (sec === 'tg' ? 'active-tg' : '');
         }
 
-        function switchTab(tab) {
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            if(tab === 'uc') {
-                document.getElementById('sec-uc').classList.add('active');
-            } else if(tab === 'plus') {
-                document.getElementById('sec-plus').classList.add('active');
-            } else if(tab === 'code') {
-                document.getElementById('sec-code').classList.add('active');
-            } else if(tab === 'stars') {
-                document.getElementById('sec-stars').classList.add('active');
-            } else if(tab === 'profile') {
-                document.getElementById('sec-profile').classList.add('active');
-            } else if(tab === 'support') {
-                document.getElementById('sec-support').classList.add('active');
-            }
+        function openPayModal(item, price) {
+            selectedItem = item;
+            selectedPrice = price;
+            document.getElementById('modalTitle').innerText = item;
+            document.getElementById('modalSub').innerText = `К оплате: ${price} ₽`;
+            document.getElementById('payModal').style.display = 'flex';
         }
 
-        function buyItem(itemName) {
-            tg.sendData(JSON.stringify({action: "buy", item: itemName}));
+        function closePayModal() {
+            document.getElementById('payModal').style.display = 'none';
+        }
+
+        function submitOrder(method) {
+            // Передаем строку "НАЗВАНИЕ|ЦЕНА|МЕТОД" обратно в бота
+            tg.sendData(`${selectedItem}|${selectedPrice}|${method}`);
             tg.close();
         }
     </script>
