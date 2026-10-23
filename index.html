@@ -3,102 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>KABAN UC — Премиум Магазин</title>
+<title>KABAN UC</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 :root{
-  --bg:#080506;
-  --card:#140c0f;
-  --card-hover:#1c1015;
-  --line:#2e151a;
-  --txt:#ffffff;
-  --dim:#9e858a;
-  --acc:#ff2d3d;
-  --acc-glow:rgba(255, 45, 61, 0.35);
+  --bg:#0c0809;
+  --card:#1a1214;
+  --line:#33191d;
+  --txt:#f6f2f2;
+  --dim:#a08c8f;
+  --acc:#ff3b47;
   --acc2:#b3121f;
   --green:#2ecc71;
   --yellow:#ffb703;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{
-  background:radial-gradient(1000px 500px at 50% -120px,#3f0a12,var(--bg) 65%) no-repeat,var(--bg);
+  background:radial-gradient(900px 400px at 50% -100px,#3a0e14,var(--bg) 70%) no-repeat,var(--bg);
   color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
   padding:16px 16px 120px;
   min-height:100vh;
 }
-.scr{display:none;animation:in .25s ease-out}
-.scr.on{display:block}
-@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* Герой блок */
+.scr{display:none}.scr.on{display:block}
 .hero{
   border-radius:24px;
-  padding:28px 22px;
-  margin-bottom:18px;
-  background:linear-gradient(135deg,#ff2d3d,#c91827 60%,#7a0812);
+  padding:26px 22px;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,#ff4d5a,#d7192a 60%,#6f0a13);
   position:relative;
   overflow:hidden;
-  box-shadow:0 14px 45px var(--acc-glow);
+  box-shadow:0 12px 40px rgba(215,25,42,.3);
 }
-.hero:after{
-  content:"🐗";
-  position:absolute;
-  right:-10px;
-  bottom:-20px;
-  font-size:110px;
-  opacity:0.18;
-}
-.hero small{opacity:.9;font-size:13px;font-weight:600;letter-spacing:0.5px}
-.hero h1{font-size:28px;font-weight:900;margin-top:4px;line-height:1.15;letter-spacing:-0.5px}
-.hero p{opacity:.92;margin-top:8px;font-size:14px;line-height:1.4}
+.hero small{opacity:.9;font-size:13px}
+.hero h1{font-size:27px;font-weight:900;margin-top:4px;line-height:1.15}
+.hero p{opacity:.92;margin-top:8px;font-size:14px}
 
-/* Большие карточки на главной */
-.big-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+.big-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:14px}
 .big{
-  border-radius:20px;
-  padding:20px;
+  border-radius:22px;
+  padding:18px;
   cursor:pointer;
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:14px;
   border:1.5px solid var(--line);
   background:var(--card);
-  transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  transition:.15s;
 }
-.big:active{transform:scale(0.97)}
-.big:hover{border-color:var(--acc);background:var(--card-hover)}
+.big:active{transform:scale(.97)}
 .big .ic{
-  font-size:36px;
-  width:64px;
-  height:64px;
-  border-radius:20px;
+  font-size:32px;
+  width:58px;
+  height:58px;
+  border-radius:18px;
   display:grid;
   place-items:center;
   background:linear-gradient(135deg,var(--acc),var(--acc2));
-  box-shadow:0 8px 20px var(--acc-glow);
   flex-shrink:0;
 }
-.big b{font-size:18px;display:block;margin-bottom:2px}
-.big span{color:var(--dim);font-size:13px;line-height:1.3}
+.big b{font-size:18px;display:block}
+.big span{color:var(--dim);font-size:13px}
 
-/* Вкладки каталога */
-.tabs{
-  display:flex;
-  gap:8px;
-  background:var(--card);
-  padding:6px;
-  border-radius:16px;
-  margin-bottom:16px;
-  border:1px solid var(--line);
-  overflow-x:auto;
-}
+.tabs{display:flex;gap:6px;background:var(--card);padding:5px;border-radius:16px;margin-bottom:14px;overflow-x:auto}
 .tab{
   flex:1;
   white-space:nowrap;
   text-align:center;
-  padding:12px 14px;
+  padding:11px 10px;
   border-radius:12px;
   font-size:14px;
   font-weight:700;
@@ -106,90 +78,75 @@ body{
   cursor:pointer;
   transition:.2s;
 }
-.tab.on{
-  background:linear-gradient(90deg,var(--acc),var(--acc2));
-  color:#fff;
-  box-shadow:0 4px 15px var(--acc-glow);
-}
+.tab.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff}
 
-h2{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin:10px 4px 12px;font-weight:800}
+h2{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:6px 4px 12px}
 
-/* Сетка крупных игровых товаров */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pack{
   background:var(--card);
   border:1.5px solid var(--line);
-  border-radius:20px;
-  padding:20px 16px;
+  border-radius:18px;
+  padding:18px 14px;
   cursor:pointer;
   position:relative;
-  transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:0 8px 25px rgba(0,0,0,0.3);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  min-height:130px;
+  transition:.15s;
 }
-.pack:active{transform:scale(0.96)}
-.pack:hover{border-color:var(--acc);background:var(--card-hover);transform:translateY(-2px)}
-.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-glow)}
-.pack .t{font-size:20px;font-weight:900;letter-spacing:-0.5px}
-.pack .p{color:var(--green);margin-top:8px;font-size:16px;font-weight:800}
+.pack:active{transform:scale(.96)}
+.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,59,71,.22)}
+.pack .t{font-size:19px;font-weight:800}
+.pack .p{color:var(--green);margin-top:6px;font-size:15px;font-weight:700}
 .tag{
   position:absolute;
-  top:-9px;
-  right:12px;
-  background:linear-gradient(90deg,var(--yellow),#f3722c);
-  color:#000;
+  top:-8px;
+  right:10px;
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  color:#fff;
   font-size:10px;
-  font-weight:900;
-  padding:4px 9px;
+  font-weight:800;
+  padding:3px 8px;
   border-radius:8px;
-  box-shadow:0 4px 12px rgba(255,183,3,0.3);
 }
 
-/* Нижняя навигация */
 .nav{
   position:fixed;
   left:0;
   right:0;
   bottom:0;
   display:flex;
-  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
-  background:rgba(8,5,6,0.95);
-  backdrop-filter:blur(16px);
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+  background:rgba(12,8,9,.94);
+  backdrop-filter:blur(14px);
   border-top:1px solid var(--line);
   z-index:5;
 }
 .nav div{
   flex:1;
   text-align:center;
-  font-size:11px;
+  font-size:10px;
   color:var(--dim);
-  padding:6px 2px;
+  padding:5px 2px;
   cursor:pointer;
-  font-weight:700;
-  transition:color .2s;
+  font-weight:600;
 }
-.nav div i{display:block;font-style:normal;font-size:22px;margin-bottom:2px}
+.nav div i{display:block;font-style:normal;font-size:21px}
 .nav div.on{color:var(--acc)}
 
-/* Модальная шторка заказа */
 .sheet{
   position:fixed;
   left:12px;
   right:12px;
-  bottom:calc(70px + env(safe-area-inset-bottom));
+  bottom:calc(66px + env(safe-area-inset-bottom));
   background:var(--card);
   border:1.5px solid var(--line);
-  border-radius:24px;
-  padding:20px;
+  border-radius:22px;
+  padding:16px;
   z-index:6;
   display:none;
-  box-shadow:0 -15px 50px rgba(0,0,0,0.8);
+  box-shadow:0 -10px 40px rgba(0,0,0,.6);
 }
-.sheet.on{display:block;animation:in .2s cubic-bezier(0,0,0.2,1)}
-.sheet .nm{font-weight:900;margin-bottom:14px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.sheet.on{display:block}
+.sheet .nm{font-weight:800;margin-bottom:12px;font-size:16px;display:flex;justify-content:space-between}
 
 input,textarea{
   width:100%;
@@ -198,80 +155,69 @@ input,textarea{
   border-radius:14px;
   color:var(--txt);
   font-size:16px;
-  padding:15px;
+  padding:14px;
   outline:none;
-  margin-bottom:8px;
+  margin-bottom:6px;
   font-family:inherit;
-  transition:border-color .2s;
 }
 input:focus,textarea:focus{border-color:var(--acc)}
-.err{color:#ff7b84;font-size:13px;min-height:16px;margin-bottom:8px;font-weight:600}
+.err{color:#ff7b84;font-size:12px;min-height:14px;margin-bottom:6px}
 
 .btn{
   width:100%;
   border:0;
-  border-radius:16px;
-  padding:16px;
-  font-size:16px;
-  font-weight:900;
+  border-radius:15px;
+  padding:15px;
+  font-size:15px;
+  font-weight:800;
   color:#fff;
   background:linear-gradient(90deg,var(--acc),var(--acc2));
   cursor:pointer;
-  margin-top:8px;
-  box-shadow:0 8px 25px var(--acc-glow);
-  transition:transform .15s;
+  margin-top:6px;
 }
-.btn:active{transform:scale(0.97)}
-.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line);box-shadow:none}
-.btn:disabled{opacity:.5;pointer-events:none}
+.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line)}
 
-/* Профиль */
-.me{text-align:center;padding:10px 0 20px}
+.me{text-align:center;padding:10px 0 18px}
 .av{
-  width:88px;
-  height:88px;
+  width:90px;
+  height:90px;
   border-radius:50%;
   margin:0 auto 12px;
   background:linear-gradient(135deg,var(--acc),var(--acc2));
   display:grid;
   place-items:center;
-  font-size:36px;
+  font-size:38px;
   font-weight:900;
   color:#fff;
   overflow:hidden;
-  box-shadow:0 8px 25px var(--acc-glow);
-  border:3px solid var(--line);
 }
 .av img{width:100%;height:100%;object-fit:cover}
-.me h3{font-size:24px;font-weight:900;margin-bottom:2px}
-.me span{color:var(--dim);font-size:14px}
+.me h3{font-size:22px}.me span{color:var(--dim)}
 
 .row{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  padding:16px 18px;
+  padding:14px 16px;
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:16px;
-  margin-bottom:10px;
-  font-size:15px;
+  border-radius:14px;
+  margin-bottom:8px;
+  font-size:14px;
 }
 .row span{color:var(--dim)}
-.row b{font-weight:800}
 
-.note{color:var(--dim);font-size:13px;text-align:center;margin-top:16px;line-height:1.5}
-.box{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+.note{color:var(--dim);font-size:13px;text-align:center;margin-top:14px;line-height:1.5}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
 
 .code{
   font-family:monospace;
-  font-size:16px;
+  font-size:15px;
   word-break:break-all;
   background:var(--bg);
   border:1.5px dashed var(--acc);
-  border-radius:14px;
-  padding:14px;
-  margin-top:12px;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px;
   display:none;
   cursor:pointer;
   color:var(--yellow);
@@ -279,28 +225,24 @@ input:focus,textarea:focus{border-color:var(--acc)}
   font-weight:bold;
 }
 
-.rv b{display:block;font-size:15px;margin-bottom:2px}
-.rv small{color:var(--dim)}
-.rv p{margin-top:8px;font-size:14px;line-height:1.4}
+.rv b{display:block}.rv small{color:var(--dim)}.rv p{margin-top:6px;font-size:14px;line-height:1.4}
 
-.st{font-size:32px;letter-spacing:4px;cursor:pointer;margin:8px 0 12px;text-align:center}
-.st span{opacity:.3;transition:opacity .15s}
-.st span.on{opacity:1}
-.avg{font-size:48px;font-weight:900;text-align:center;color:var(--yellow)}
+.st{font-size:30px;letter-spacing:4px;cursor:pointer;margin:6px 0 10px;text-align:center}
+.st span{opacity:.3}.st span.on{opacity:1}
+.avg{font-size:40px;font-weight:900;text-align:center;color:var(--yellow)}
 
 .res{text-align:center;padding-top:40px}
-.res h1{font-size:26px;margin-bottom:12px;font-weight:900}
-.res p{color:var(--dim);line-height:1.5}
+.res h1{font-size:24px;margin-bottom:10px}.res p{color:var(--dim)}
 </style>
 </head>
 <body>
 
-<!-- ГЛАВНАЯ СТРАНИЦА -->
+<!-- ГЛАВНЫЙ ЭКРАН -->
 <div class="scr on" id="home">
   <div class="hero">
     <small>👋 <span id="hi">Привет</span></small>
-    <h1>KABAN UC & STARS</h1>
-    <p>Официальный игровой маркетплейс. Выгодные цены на UC PUBG Mobile, Telegram Stars и Premium с мгновенной выдачей.</p>
+    <h1>Добро пожаловать<br>в KABAN UC</h1>
+    <p>UC для PUBG Mobile, звёзды и Premium для Telegram. Быстрая оплата.</p>
   </div>
   
   <div class="big-grid">
@@ -308,27 +250,27 @@ input:focus,textarea:focus{border-color:var(--acc)}
       <div class="ic">💎</div>
       <div>
         <b>PUBG Mobile</b>
-        <span>UC наборы, Plus подписки, выгодные промо-коды</span>
+        <span>UC · Plus подписка · коды на UC</span>
       </div>
     </div>
     <div class="big" onclick="openSec('tg')">
       <div class="ic">⭐</div>
       <div>
-        <b>Telegram Сервисы</b>
-        <span>Официальные Звёзды (Stars) и Telegram Premium</span>
+        <b>Telegram</b>
+        <span>Звёзды · Premium</span>
       </div>
     </div>
     <div class="big" onclick="goRef()">
       <div class="ic">👥</div>
       <div>
-        <b>Реферальная программа</b>
-        <span>Получай <span id="pc">5</span>% с покупок друзей на баланс</span>
+        <b>Приглашай друзей</b>
+        <span>Получай <span id="pc">5</span>% с их покупок на баланс</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- КАТАЛОГ ТОВАРОВ -->
+<!-- РАЗДЕЛ ТОВАРОВ -->
 <div class="scr" id="sec">
   <h2 id="secname"></h2>
   <div class="tabs" id="tabs"></div>
@@ -343,67 +285,66 @@ input:focus,textarea:focus{border-color:var(--acc)}
     <span id="pu"></span>
   </div>
   
-  <div class="row"><span>Telegram ID</span><b id="pid2"></b></div>
+  <div class="row"><span>ID</span><b id="pid2"></b></div>
   <div class="row"><span>Регистрация в боте</span><b id="preg"></b></div>
   <div class="row"><span>Всего заказов</span><b id="pord">0</b></div>
   <div class="row"><span>Всего потрачено</span><b id="pspent">0 ₽</b></div>
-  <div class="row"><span>Ваш баланс</span><b id="pbal" style="color:var(--green)">0 ₽</b></div>
+  <div class="row"><span>Баланс</span><b id="pbal" style="color:var(--green)">0 ₽</b></div>
   <div class="row"><span>Скидка по промокоду</span><b id="pdis" style="color:var(--yellow)">0%</b></div>
 
-  <div class="box" style="margin-top:14px">
-    <h3 style="font-size:15px;margin-bottom:10px">🎟 Активация промокода</h3>
-    <input id="promo" placeholder="Введите промокод (например KABAN)">
+  <div class="box" style="margin-top:12px">
+    <input id="promo" placeholder="Промокод (например KABAN)">
     <div class="err" id="perr"></div>
-    <button class="btn" style="margin-top:0" onclick="usePromo()">Применить промокод</button>
+    <button class="btn" style="margin-top:0" onclick="usePromo()">🎟 Применить промокод</button>
   </div>
 
-  <button class="btn alt" onclick="tg.openTelegramLink('https://t.me/neleron')">💬 Написать в поддержку (@neleron)</button>
+  <button class="btn alt" onclick="tg.openTelegramLink('https://t.me/neleron')">💬 Поддержка (@neleron)</button>
 </div>
 
 <!-- РЕФЕРАЛЫ -->
 <div class="scr" id="ref">
   <div class="hero">
-    <h1>👥 Рефералы</h1>
-    <p>Приглашайте друзей по вашей ссылке и получайте <b id="rp">5</b>% на баланс с каждой их покупки! Тратьте баланс на любые товары в один клик.</p>
+    <h1>👥 Реферальная программа</h1>
+    <p>Делись ссылкой — получай <b id="rp">5</b>% с каждой покупки друга на баланс. Балансом можно оплачивать заказы.</p>
   </div>
-  <div class="row"><span>Приглашено друзей</span><b id="rn">0</b></div>
-  <div class="row"><span>Заработано с рефералов</span><b id="re">0 ₽</b></div>
-  <div class="row"><span>Доступный баланс</span><b id="rb" style="color:var(--green)">0 ₽</b></div>
+  <div class="row"><span>Приглашено</span><b id="rn">0</b></div>
+  <div class="row"><span>Заработано</span><b id="re">0 ₽</b></div>
+  <div class="row"><span>Баланс</span><b id="rb" style="color:var(--green)">0 ₽</b></div>
   
   <div class="box">
-    <small style="color:var(--dim)">Ваша персональная ссылка</small>
-    <div id="rl" style="word-break:break-all;margin-top:8px;font-size:14px;font-weight:bold;color:var(--txt)"></div>
+    <small style="color:var(--dim)">Твоя ссылка</small>
+    <div id="rl" style="word-break:break-all;margin-top:6px;font-size:14px;font-weight:bold"></div>
   </div>
-  <button class="btn" onclick="share()">📤 Поделиться в Telegram</button>
+  <button class="btn" onclick="share()">📤 Поделиться</button>
   <button class="btn alt" onclick="copyRef()">📋 Скопировать ссылку</button>
 </div>
 
 <!-- ОТЗЫВЫ -->
 <div class="scr" id="rev">
   <div class="avg" id="avg">—</div>
-  <div class="note" id="cnt" style="margin:0 0 16px">Пока нет отзывов — станьте первым!</div>
+  <div class="note" id="cnt" style="margin:0 0 14px">Пока нет отзывов — стань первым!</div>
   
   <div class="box">
-    <b style="font-size:16px">Оставить отзыв</b>
+    <b>Оставить отзыв</b>
     <div class="st" id="stars"></div>
-    <textarea id="rtxt" rows="3" maxlength="300" placeholder="Расскажите о покупке и скорости выдачи (от 5 до 300 символов)"></textarea>
+    <textarea id="rtxt" rows="3" maxlength="300" placeholder="Расскажи о покупке (5–300 символов)"></textarea>
     <div class="err" id="rerr"></div>
-    <button class="btn" style="margin-top:0" onclick="sendRev()">Отправить отзыв</button>
+    <button class="btn" style="margin-top:0" onclick="sendRev()">Отправить</button>
   </div>
   <div id="rlist"></div>
 </div>
 
-<!-- СТРАНИЦА ОПЛАТЫ / РЕЗУЛЬТАТА -->
+<!-- ЭКРАН РЕЗУЛЬТАТА ОПЛАТЫ -->
 <div class="scr" id="res">
   <div class="res">
-    <h1 id="rt">⏳ Обработка платежа…</h1>
-    <p id="rd">Пожалуйста, подождите несколько секунд</p>
+    <h1 id="rt">⏳ Проверяем оплату…</h1>
+    <p id="rd">Это займёт несколько секунд</p>
     <div class="code" id="rc" onclick="copyCode()"></div>
-    <button class="btn alt" style="margin-top:28px" onclick="goHome()">Вернуться на главную</button>
+    <button class="btn alt" style="margin-top:24px" onclick="goHome()">На главную</button>
   </div>
 </div>
 
-<!-- ШТОРКА ОФОРМЛЕНИЯ ЗАКАЗА -->
+<!-- ШТОРКА ОФОРМЛЕНИЯ -->
 <div class="sheet" id="sheet">
   <div class="nm">
     <span id="snm">Товар</span>
@@ -415,7 +356,7 @@ input:focus,textarea:focus{border-color:var(--acc)}
   <button class="btn alt" style="margin-top:8px;background:transparent;border:none;color:var(--dim)" onclick="$('sheet').classList.remove('on')">Отмена</button>
 </div>
 
-<!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+<!-- НАВИГАЦИЯ -->
 <div class="nav">
   <div class="on" id="n-home" onclick="goHome()"><i>🏠</i>Главная</div>
   <div id="n-rev" onclick="goRev()"><i>⭐</i>Отзывы</div>
@@ -427,12 +368,11 @@ input:focus,textarea:focus{border-color:var(--acc)}
 <script>
 const tg = window.Telegram.WebApp;
 tg.ready(); tg.expand();
-try { tg.setHeaderColor('#080506'); tg.setBackgroundColor('#080506'); } catch(e){}
+try { tg.setHeaderColor('#0c0809'); tg.setBackgroundColor('#0c0809'); } catch(e){}
 
 const user = (tg.initDataUnsafe || {}).user || { id: 1234567, first_name: 'Игрок', username: 'kaban_user' };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-// База данных каталога товаров
 const CAT = {
   uc: [
     {id:'uc_60', title:'60 UC', rub:95, tag:'Хит'},
@@ -443,7 +383,7 @@ const CAT = {
     {id:'uc_8100', title:'8100 UC', rub:9490, tag:'MAX'}
   ],
   plus: [
-    {id:'plus_1', title:'Prime Plus (1 мес)', rub:990, tag:'Популярно'},
+    {id:'plus_1', title:'Prime Plus (1 мес)', rub:990},
     {id:'plus_3', title:'Prime Plus (3 мес)', rub:2790}
   ],
   codes: [
@@ -460,18 +400,17 @@ const CAT = {
   premium: [
     {id:'pr_3', title:'TG Premium (3 мес)', rub:1490},
     {id:'pr_6', title:'TG Premium (6 мес)', rub:2490, tag:'Хит'},
-    {id:'pr_12', title:'TG Premium (1 год)', rub:3990, tag:'Экономия'}
+    {id:'pr_12', title:'TG Premium (1 год)', rub:3990}
   ]
 };
 
 const SECS = {
   pubg: { n: '💎 PUBG Mobile', tabs: [['uc','UC Наборы'],['plus','Plus Подписка'],['codes','Коды на UC']] },
-  tg: { n: '⭐ Telegram Сервисы', tabs: [['stars','Telegram Звёзды'],['premium','Telegram Premium']] }
+  tg: { n: '⭐ Telegram', tabs: [['stars','Звёзды'],['premium','Премиум']] }
 };
 
 const NEED = { uc:'pid', plus:'pid', codes:'none', stars:'user', premium:'user' };
 
-// Локальное сохранение профиля и баланса
 let ME = JSON.parse(localStorage.getItem('kaban_me') || JSON.stringify({
   balance: 0,
   spent: 0,
@@ -537,7 +476,7 @@ function fin(rub) {
 
 function pick(catKey, i) {
   sel = CAT[catKey][i];
-  tg.HapticFeedback.impactOccurred('medium');
+  tg.HapticFeedback.impactOccurred('light');
   
   document.querySelectorAll('.pack').forEach((e, k) => e.classList.toggle('sel', k == i));
   const n = NEED[catKey], inp = $('inp');
@@ -548,7 +487,7 @@ function pick(catKey, i) {
     inp.style.display = 'none';
   } else {
     inp.style.display = 'block';
-    inp.placeholder = n == 'pid' ? 'Введите ваш PUBG ID (например 512345678)' : 'Введите @username получателя (или оставьте пустым для себя)';
+    inp.placeholder = n == 'pid' ? 'Твой PUBG ID (8–12 цифр)' : '@username получателя (пусто — себе)';
     inp.inputMode = n == 'pid' ? 'numeric' : 'text';
   }
   
@@ -557,8 +496,8 @@ function pick(catKey, i) {
   $('sprice').textContent = finalPrice + ' ₽' + (ME.discount ? ` (-${ME.discount}%)` : '');
   
   let b = [];
-  b.push(['sbp', '🏦 Оплата по СБП / Карта']);
-  b.push(['crypto', '⚡ Crypto Bot (USDT / TON)']);
+  b.push(['sbp', '🏦 Оплата по СБП / Картой']);
+  b.push(['crypto', '⚡ Crypto Bot (USDT/TON)']);
   if(catKey == 'stars' || catKey == 'premium') {
     b.push(['stars', '⭐ Telegram Stars']);
   }
@@ -579,23 +518,18 @@ async function pay(method) {
   const n = NEED[T];
   let v = $('inp').value.trim();
   if(n == 'pid') {
-    if(v.length < 6) { $('err').textContent = 'Введите корректный PUBG ID (от 6 цифр)'; return; }
-  }
-  if(n == 'user') {
-    v = v.replace('@','');
-    if(v && !/^[A-Za-z0-9_]{4,32}$/.test(v)) { $('err').textContent = 'Неверный формат username'; return; }
+    if(v.length < 6) { $('err').textContent = 'Введи корректный PUBG ID'; return; }
   }
   
   let finalPrice = fin(sel.rub);
   
   if(method == 'balance') {
-    if(ME.balance < finalPrice) { $('err').textContent = 'Недостаточно средств на балансе'; return; }
+    if(ME.balance < finalPrice) { $('err').textContent = 'Недостаточно баланса'; return; }
     ME.balance -= finalPrice;
   }
   
   ME.orders += 1;
   ME.spent += finalPrice;
-  ME.earned += Math.round(finalPrice * (ME.percent / 100));
   saveMe();
   
   $('sheet').classList.remove('on');
@@ -603,37 +537,36 @@ async function pay(method) {
   tg.BackButton.hide();
   
   $('rt').textContent = '⏳ Обработка платежа…';
-  $('rd').textContent = 'Проверяем статус транзакции';
+  $('rd').textContent = 'Заказ обрабатывается';
   $('rc').style.display = 'none';
   
   setTimeout(() => {
     let orderId = Math.floor(100000 + Math.random() * 900000);
-    $('rt').textContent = '✅ Заказ #' + orderId + ' успешно оплачен!';
+    $('rt').textContent = '✅ Заказ #' + orderId + ' оплачен';
     tg.HapticFeedback.notificationOccurred('success');
     
     if(T == 'codes' || T == 'uc') {
-      let fakeCode = 'UC-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
-      $('rd').textContent = 'Ваш цифровой товар / код выдано (нажмите, чтобы скопировать):';
+      let fakeCode = 'UC-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+      $('rd').textContent = 'Твой код (нажми, чтобы скопировать):';
       $('rc').style.display = 'block';
       $('rc').textContent = fakeCode;
     } else {
-      $('rd').textContent = 'Товар успешно зачислен на ваш аккаунт! Спасибо за покупку в KABAN UC.';
+      $('rd').textContent = 'Выдадим товар в течение нескольких минут!';
     }
-  }, 1800);
+  }, 1500);
 }
 
 function copyCode() {
   if(navigator.clipboard) {
-    navigator.clipboard.writeText($('rc').textContent).then(() => tg.showAlert('Код успешно скопирован в буфер обмена!'));
+    navigator.clipboard.writeText($('rc').textContent).then(() => tg.showAlert('Код скопирован'));
   }
 }
 
-// ПРОФИЛЬ
 function goProf() {
   scr('prof', 'prof');
   const n = (user.first_name || 'Игрок');
   $('pn').textContent = n;
-  $('pu').textContent = user.username ? '@' + user.username : 'ID: ' + user.id;
+  $('pu').textContent = user.username ? '@' + user.username : 'без юзернейма';
   $('pid2').textContent = user.id || '1234567';
   $('av').innerHTML = user.photo_url ? `<img src="${esc(user.photo_url)}">` : esc(n[0] || 'K');
   
@@ -644,33 +577,31 @@ function goProf() {
   $('pdis').textContent = ME.discount + '%';
 }
 
-// АКТИВАЦИЯ ПРОМОКОДА
 function usePromo() {
   let code = $('promo').value.trim().toUpperCase();
   let perr = $('perr');
-  if(!code) { perr.textContent = 'Введите промокод'; return; }
+  if(!code) { perr.textContent = 'Введи промокод'; return; }
   
   if(code === 'KABAN' || code === 'UC2026' || code === 'START') {
     ME.discount = 10;
     saveMe();
     perr.style.color = 'var(--green)';
-    perr.textContent = '🎉 Промокод активирован! Скидка 10% применена ко всем товарам.';
+    perr.textContent = '🎉 Скидка 10% применена!';
     $('pdis').textContent = ME.discount + '%';
     $('promo').value = '';
   } else if(code === 'BONUS50') {
     ME.balance += 50;
     saveMe();
     perr.style.color = 'var(--green)';
-    perr.textContent = '🎁 Бонус 50 ₽ зачислен на ваш баланс!';
+    perr.textContent = '🎁 Бонус 50 ₽ зачислен!';
     $('pbal').textContent = ME.balance + ' ₽';
     $('promo').value = '';
   } else {
     perr.style.color = '#ff7b84';
-    perr.textContent = '❌ Неверный или просроченный промокод';
+    perr.textContent = '❌ Неверный промокод';
   }
 }
 
-// РЕФЕРАЛЫ
 function goRef() {
   scr('ref', 'ref');
   $('rp').textContent = ME.percent;
@@ -683,19 +614,16 @@ function goRef() {
 
 function share() {
   let refLink = 'https://t.me/kaban_uc_bot?start=ref_' + (user.id || 1234567);
-  tg.openTelegramLink('https://t.me/share/url?url=' + encodeURIComponent(refLink) + '&text=' + encodeURIComponent('🔥 Пополняй UC для PUBG Mobile и покупай Telegram Stars со скидкой в KABAN UC!'));
+  tg.openTelegramLink('https://t.me/share/url?url=' + encodeURIComponent(refLink) + '&text=' + encodeURIComponent('Пополняй UC и звёзды в KABAN UC 🔥'));
 }
 
 function copyRef() {
   let refLink = 'https://t.me/kaban_uc_bot?start=ref_' + (user.id || 1234567);
   if(navigator.clipboard) {
-    navigator.clipboard.writeText(refLink).then(() => tg.showAlert('Реферальная ссылка скопирована!'));
-  } else {
-    tg.showAlert(refLink);
+    navigator.clipboard.writeText(refLink).then(() => tg.showAlert('Ссылка скопирована'));
   }
 }
 
-// РЕАЛЬНЫЕ ОТЗЫВЫ (Сохранение в localStorage)
 let rate_ = 5;
 function drawStars() {
   $('stars').innerHTML = [1,2,3,4,5].map(n => `<span class="${n <= rate_ ? 'on' : ''}" onclick="rate_=${n};drawStars()">⭐</span>`).join('');
@@ -710,11 +638,11 @@ function goRev() {
   
   if(REAL_REVIEWS.length === 0) {
     $('avg').textContent = '—';
-    $('cnt').textContent = 'Пока нет отзывов — станьте первым!';
+    $('cnt').textContent = 'Пока нет отзывов — стань первым!';
     $('rlist').innerHTML = '';
   } else {
     let sum = REAL_REVIEWS.reduce((acc, r) => acc + r.rating, 0);
-    $('avg').textContent = (sum / REAL_REVIEWS.length).toFixed(1);
+    $('avg').textContent = '⭐ ' + (sum / REAL_REVIEWS.length).toFixed(1);
     $('cnt').textContent = 'Отзывов: ' + REAL_REVIEWS.length;
     $('rlist').innerHTML = REAL_REVIEWS.map(r => `
       <div class="box rv" style="margin-top:10px">
@@ -730,7 +658,7 @@ function sendRev() {
   const t = $('rtxt').value.trim();
   if(t.length < 5) {
     $('rerr').style.color = '#ff7b84';
-    $('rerr').textContent = 'Отзыв должен содержать не менее 5 символов';
+    $('rerr').textContent = 'Напиши хотя бы 5 символов';
     return;
   }
   REAL_REVIEWS.unshift({
@@ -743,12 +671,8 @@ function sendRev() {
   $('rtxt').value = '';
   goRev();
   $('rerr').style.color = 'var(--green)';
-  $('rerr').textContent = 'Спасибо за ваш отзыв! ❤️';
+  $('rerr').textContent = 'Спасибо за отзыв! 💖';
 }
-
-// Автооткрытие вкладки, если передана в URL
-const st = new URLSearchParams(location.search).get('s');
-if(SECS[st]) openSec(st);
 </script>
 </body>
 </html>
