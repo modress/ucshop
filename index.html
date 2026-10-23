@@ -1,313 +1,114 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KABAN UC SHOP</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        :root {
-            --bg-color: #0f1015;
-            --card-bg: #181a20;
-            --card-border: #2b2f3a;
-            --accent-yellow: #ffb703;
-            --accent-blue: #0088cc;
-            --accent-green: #2ecc71;
-            --text-main: #ffffff;
-            --text-sub: #a0a5b5;
-        }
-
-        * {
-            box-sizing: border-box;
-            user-select: none;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 12px;
-            padding-bottom: 90px;
-        }
-
-        .header {
-            text-align: center;
-            padding: 10px 0 15px;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 26px;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ffb703, #ff8200);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Крупные переключатели разделов */
-        .main-tabs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .main-tab-btn {
-            background: var(--card-bg);
-            border: 2px solid var(--card-border);
-            border-radius: 14px;
-            padding: 14px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-sub);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .main-tab-btn.active-pubg {
-            border-color: var(--accent-yellow);
-            color: var(--accent-yellow);
-            background: rgba(255, 183, 3, 0.1);
-        }
-
-        .main-tab-btn.active-tg {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-            background: rgba(0, 136, 204, 0.1);
-        }
-
-        /* Сетка крупных карточек */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .card-icon {
-            font-size: 42px;
-            margin-bottom: 8px;
-        }
-
-        .card-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .card-price {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--accent-green);
-            margin-bottom: 12px;
-        }
-
-        .btn-buy {
-            width: 100%;
-            background: linear-gradient(180deg, #2ecc71, #27ae60);
-            border: none;
-            color: #000;
-            padding: 10px 0;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* Модальное окно выбора оплаты */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            width: 100%;
-            max-width: 350px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .pay-option {
-            width: 100%;
-            background: #232733;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            color: #fff;
-            font-weight: 700;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-
-        .pay-option.sbp { border-color: #00b0ff; }
-        .pay-option.crypto { border-color: #f7931a; }
-        .pay-option.stars { border-color: #ffb703; }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            font-size: 14px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <h1>🐗 KABAN SHOP</h1>
-    </div>
-
-    <!-- Вкладки PUBG / Telegram -->
-    <div class="main-tabs">
-        <div id="tab-pubg" class="main-tab-btn active-pubg" onclick="switchSection('pubg')">🎮 PUBG Mobile</div>
-        <div id="tab-tg" class="main-tab-btn" onclick="switchSection('tg')">✈️ Telegram</div>
-    </div>
-
-    <!-- РАЗДЕЛ PUBG MOBILE -->
-    <div id="sec-pubg" class="products-grid">
-        <div class="card">
-            <div class="card-icon">💵</div>
-            <div class="card-title">60 UC</div>
-            <div class="card-price">95 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('60 UC', 95)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">💵</div>
-            <div class="card-title">325 UC</div>
-            <div class="card-price">480 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('325 UC', 480)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">💰</div>
-            <div class="card-title">660 UC</div>
-            <div class="card-price">890 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('660 UC', 890)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">👑</div>
-            <div class="card-title">Prime Plus</div>
-            <div class="card-price">990 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('PUBG Prime Plus', 990)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">🎟</div>
-            <div class="card-title">Код 60 UC</div>
-            <div class="card-price">100 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('Код 60 UC', 100)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">🎟</div>
-            <div class="card-title">Код 325 UC</div>
-            <div class="card-price">500 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('Код 325 UC', 500)">Купить</button>
-        </div>
-    </div>
-
-    <!-- РАЗДЕЛ TELEGRAM -->
-    <div id="sec-tg" class="products-grid" style="display: none;">
-        <div class="card">
-            <div class="card-icon">⭐️</div>
-            <div class="card-title">50 Stars</div>
-            <div class="card-price">120 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('50 Telegram Stars', 120)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">⭐️</div>
-            <div class="card-title">100 Stars</div>
-            <div class="card-price">230 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('100 Telegram Stars', 230)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">⭐</div>
-            <div class="card-title">500 Stars</div>
-            <div class="card-price">1100 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('500 Telegram Stars', 1100)">Купить</button>
-        </div>
-        <div class="card">
-            <div class="card-icon">💎</div>
-            <div class="card-title">Premium 3 мес</div>
-            <div class="card-price">1490 ₽</div>
-            <button class="btn-buy" onclick="openPayModal('TG Premium 3 мес', 1490)">Купить</button>
-        </div>
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
-    <div id="payModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle" style="margin-top:0;">Выберите способ оплаты</h3>
-            <p id="modalSub" style="color:var(--text-sub); font-size:14px; margin-bottom:20px;"></p>
-
-            <button class="pay-option sbp" onclick="submitOrder('sbp')">🏦 СБП (Система быстрых платежей)</button>
-            <button class="pay-option crypto" onclick="submitOrder('crypto')">⚡️ Crypto Bot (USDT/TON)</button>
-            <button class="pay-option stars" onclick="submitOrder('stars')">⭐️ Telegram Stars</button>
-
-            <button class="close-btn" onclick="closePayModal()">Отмена</button>
-        </div>
-    </div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        let selectedItem = "";
-        let selectedPrice = 0;
-
-        function switchSection(sec) {
-            document.getElementById('sec-pubg').style.display = sec === 'pubg' ? 'grid' : 'none';
-            document.getElementById('sec-tg').style.display = sec === 'tg' ? 'grid' : 'none';
-
-            document.getElementById('tab-pubg').className = 'main-tab-btn ' + (sec === 'pubg' ? 'active-pubg' : '');
-            document.getElementById('tab-tg').className = 'main-tab-btn ' + (sec === 'tg' ? 'active-tg' : '');
-        }
-
-        function openPayModal(item, price) {
-            selectedItem = item;
-            selectedPrice = price;
-            document.getElementById('modalTitle').innerText = item;
-            document.getElementById('modalSub').innerText = `К оплате: ${price} ₽`;
-            document.getElementById('payModal').style.display = 'flex';
-        }
-
-        function closePayModal() {
-            document.getElementById('payModal').style.display = 'none';
-        }
-
-        function submitOrder(method) {
-            // Передаем строку "НАЗВАНИЕ|ЦЕНА|МЕТОД" обратно в бота
-            tg.sendData(`${selectedItem}|${selectedPrice}|${method}`);
-            tg.close();
-        }
-    </script>
-</body>
-</html>
+<html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KABAN UC</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#0b0d12;--card:#161a23;--line:#252b38;--txt:#f4f5f7;--dim:#8b92a3;--acc:#ff9f1a;--acc2:#ff5e3a}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:16px 16px 190px;min-height:100vh}
+.scr{display:none;animation:in .25s}.scr.on{display:block}@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.hero{border-radius:24px;padding:26px 22px;margin-bottom:16px;background:linear-gradient(135deg,#ff9f1a,#ff5e3a 65%,#c1272d);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.16)}
+.hero small{opacity:.85;font-size:13px}.hero h1{font-size:26px;font-weight:900;margin-top:4px;line-height:1.15}.hero p{opacity:.92;margin-top:8px;font-size:14px}
+.big{border-radius:22px;padding:20px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:var(--card);transition:.15s}
+.big:active{transform:scale(.97)}.big .ic{font-size:34px;width:60px;height:60px;border-radius:18px;display:grid;place-items:center}
+.big b{font-size:18px;display:block}.big span{color:var(--dim);font-size:13px}
+.big.uc .ic{background:linear-gradient(135deg,#ff9f1a,#ff5e3a)}.big.tg .ic{background:linear-gradient(135deg,#2aabee,#1c7bd8)}
+.tabs{display:flex;gap:6px;background:var(--card);padding:5px;border-radius:16px;margin-bottom:14px;overflow-x:auto}
+.tab{flex:1;white-space:nowrap;text-align:center;padding:11px 10px;border-radius:12px;font-size:14px;font-weight:700;color:var(--dim);cursor:pointer;transition:.2s}
+.tab.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#111}
+h2{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:6px 4px 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pack{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px 14px;cursor:pointer;position:relative;transition:.15s}
+.pack:active{transform:scale(.96)}.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent)}
+.pack .t{font-size:19px;font-weight:800}.pack .p{color:var(--dim);margin-top:6px;font-size:14px}
+.tag{position:absolute;top:-8px;right:10px;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#111;font-size:10px;font-weight:800;padding:3px 8px;border-radius:8px}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:rgba(11,13,18,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:5}
+.nav div{flex:1;text-align:center;font-size:11px;color:var(--dim);padding:6px;cursor:pointer;font-weight:600}.nav div i{display:block;font-style:normal;font-size:22px}
+.nav div.on{color:var(--acc)}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:14px;z-index:6;display:none;box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+.sheet.on{display:block;animation:in .2s}.sheet .nm{font-weight:800;margin-bottom:10px;font-size:15px}
+input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;color:var(--txt);font-size:16px;padding:14px;outline:none;margin-bottom:6px}input:focus{border-color:var(--acc)}
+.err{color:#ff6b6b;font-size:12px;min-height:14px;margin-bottom:6px}
+.btn{width:100%;border:0;border-radius:15px;padding:16px;font-size:16px;font-weight:800;color:#111;background:linear-gradient(90deg,var(--acc),var(--acc2));cursor:pointer}
+.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line);margin-top:10px}
+.me{text-align:center;padding:10px 0 18px}.av{width:92px;height:92px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-size:38px;font-weight:900;color:#111;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}.me h3{font-size:22px}.me span{color:var(--dim)}
+.row{display:flex;justify-content:space-between;padding:15px 16px;background:var(--card);border-radius:14px;margin-bottom:8px}.row span{color:var(--dim)}
+.note{color:var(--dim);font-size:13px;text-align:center;margin-top:14px;line-height:1.5}
+</style></head><body>
+ 
+<div class="scr on" id="home">
+  <div class="hero"><small>👋 <span id="hi">Привет</span></small><h1>Добро пожаловать<br>в KABAN UC</h1><p>Быстрое пополнение UC для PUBG Mobile, звёзды и Premium для Telegram</p></div>
+  <div class="big uc" onclick="openSec('uc')"><div class="ic">💎</div><div><b>PUBG Mobile</b><span>UC · Plus подписка · коды на UC</span></div></div>
+  <div class="big tg" onclick="openSec('tg')"><div class="ic">⭐</div><div><b>Telegram</b><span>Звёзды · Premium</span></div></div>
+  <div class="note">Оплата в боте: Stars или CryptoBot. Выдача — автоматически или в течение 15 минут.</div>
+</div>
+ 
+<div class="scr" id="sec"><h2 id="secname"></h2><div class="tabs" id="tabs"></div><div class="grid" id="grid"></div></div>
+ 
+<div class="scr" id="prof">
+  <div class="me"><div class="av" id="av"></div><h3 id="pn"></h3><span id="pu"></span></div>
+  <div class="row"><span>ID</span><b id="pid2"></b></div>
+  <button class="btn alt" onclick="deep('profile')">📋 Полный профиль в боте</button>
+  <button class="btn alt" onclick="tg.openTelegramLink('https://t.me/neleron')">💬 Поддержка</button>
+</div>
+ 
+<div class="sheet" id="sheet"><div class="nm" id="snm"></div><input id="inp"><div class="err" id="err"></div><button class="btn" id="buy"></button></div>
+ 
+<div class="nav">
+  <div class="on" id="n-home" onclick="goHome()"><i>🏠</i>Главная</div>
+  <div id="n-prof" onclick="goProf()"><i>👤</i>Профиль</div>
+  <div onclick="tg.openTelegramLink('https://t.me/neleron')"><i>💬</i>Поддержка</div>
+</div>
+ 
+<script>
+const tg=Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#0b0d12');tg.setBackgroundColor('#0b0d12');
+const BOT=new URLSearchParams(location.search).get('bot')||'';
+const SECS={uc:{n:'💎 PUBG Mobile',acc:['#ff9f1a','#ff5e3a'],tabs:[['uc','Купить UC'],['plus','Plus подписка'],['codes','Код на UC']]},
+            tg:{n:'⭐ Telegram',acc:['#2aabee','#1c7bd8'],tabs:[['stars','Звёзды'],['premium','Премиум']]}};
+const NEED={uc:'pid',plus:'pid',codes:'none',stars:'user',premium:'user'};
+let CAT=null,S='uc',T='uc',sel=null;
+const $=id=>document.getElementById(id);
+const user=(tg.initDataUnsafe||{}).user||{};
+$('hi').textContent=user.first_name?('Привет, '+user.first_name+'!'):'Привет!';
+ 
+function scr(id,nav){document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==id));
+  ['home','prof'].forEach(k=>$('n-'+k).classList.toggle('on',k==nav));
+  $('sheet').classList.remove('on');sel=null;
+  nav=='home'&&id=='home'?tg.BackButton.hide():tg.BackButton.show()}
+function goHome(){scr('home','home');tg.BackButton.hide()}
+tg.BackButton.onClick(goHome);
+ 
+async function load(){if(CAT)return;try{CAT=await (await fetch('catalog.json?'+Date.now())).json()}catch(e){CAT={}}}
+async function openSec(s,tab){await load();S=s;T=tab||SECS[s].tabs[0][0];
+  const a=SECS[s].acc;document.documentElement.style.setProperty('--acc',a[0]);document.documentElement.style.setProperty('--acc2',a[1]);
+  $('secname').textContent=SECS[s].n;scr('sec','home');tg.BackButton.show();draw()}
+function draw(){sel=null;$('sheet').classList.remove('on');
+  $('tabs').innerHTML=SECS[S].tabs.map(t=>`<div class="tab ${t[0]==T?'on':''}" onclick="T='${t[0]}';draw()">${t[1]}</div>`).join('');
+  const items=CAT[T]||[];
+  $('grid').innerHTML=items.length?items.map((p,i)=>`<div class="pack" id="p${i}" onclick="pick(${i})">${p.tag?`<div class="tag">${p.tag}</div>`:''}<div class="t">${p.title}</div><div class="p">${p.rub} ₽</div></div>`).join(''):'<div class="note">Товары пока не загружены</div>'}
+function pick(i){sel=CAT[T][i];tg.HapticFeedback.impactOccurred('light');
+  document.querySelectorAll('.pack').forEach((e,k)=>e.classList.toggle('sel',k==i));
+  const n=NEED[T],inp=$('inp');$('err').textContent='';inp.value='';
+  inp.style.display=n=='none'?'none':'block';
+  inp.placeholder=n=='pid'?'Твой PUBG ID (8–12 цифр)':'@username получателя (пусто — себе)';
+  inp.inputMode=n=='pid'?'numeric':'text';
+  $('snm').textContent=sel.title;$('buy').textContent='Оплатить '+sel.rub+' ₽';$('sheet').classList.add('on')}
+$('inp').oninput=e=>{if(NEED[T]=='pid')e.target.value=e.target.value.replace(/\D/g,'').slice(0,12);$('err').textContent=''};
+$('buy').onclick=()=>{
+  if(!BOT){$('err').textContent='Открой магазин через кнопку в боте';return}
+  let t='x',n=NEED[T],v=$('inp').value.trim();
+  if(n=='pid'){if(v.length<8){$('err').textContent='Введи корректный PUBG ID';return}t=v}
+  if(n=='user'){v=v.replace('@','');if(!v)t='me';else if(/^[A-Za-z0-9_]{4,32}$/.test(v))t=v;else{$('err').textContent='Неверный username';return}}
+  deep('b_'+sel.id+'_'+t)};
+function deep(p){tg.openTelegramLink('https://t.me/'+BOT+'?start='+p);setTimeout(()=>tg.close(),300)}
+ 
+function goProf(){const n=(user.first_name||'')+' '+(user.last_name||'');$('pn').textContent=n.trim()||'Гость';
+  $('pu').textContent=user.username?'@'+user.username:'без юзернейма';$('pid2').textContent=user.id||'—';
+  $('av').innerHTML=user.photo_url?`<img src="${user.photo_url}">`:(n.trim()[0]||'?');scr('prof','prof')}
+ 
+const start=new URLSearchParams(location.search).get('s');if(SECS[start])openSec(start);
+</script></body></html>
