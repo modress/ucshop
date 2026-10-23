@@ -5,46 +5,50 @@
 <title>KABAN UC</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0b0d12;--card:#161a23;--line:#252b38;--txt:#f4f5f7;--dim:#8b92a3;--acc:#ff9f1a;--acc2:#ff5e3a}
+:root{--bg:#0c0809;--card:#1a1214;--line:#33191d;--txt:#f6f2f2;--dim:#a08c8f;--acc:#ff3b47;--acc2:#b3121f}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:16px 16px 190px;min-height:100vh}
+body{background:radial-gradient(900px 400px at 50% -100px,#3a0e14,var(--bg) 70%) no-repeat,var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:16px 16px 230px;min-height:100vh}
 .scr{display:none;animation:in .25s}.scr.on{display:block}@keyframes in{from{opacity:0;transform:translateY(8px)}}
-.hero{border-radius:24px;padding:26px 22px;margin-bottom:16px;background:linear-gradient(135deg,#ff9f1a,#ff5e3a 65%,#c1272d);position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.16)}
-.hero small{opacity:.85;font-size:13px}.hero h1{font-size:26px;font-weight:900;margin-top:4px;line-height:1.15}.hero p{opacity:.92;margin-top:8px;font-size:14px}
-.big{border-radius:22px;padding:20px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:var(--card);transition:.15s}
-.big:active{transform:scale(.97)}.big .ic{font-size:34px;width:60px;height:60px;border-radius:18px;display:grid;place-items:center}
+.hero{border-radius:24px;padding:26px 22px;margin-bottom:16px;background:linear-gradient(135deg,#ff4d5a,#d7192a 60%,#6f0a13);position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(215,25,42,.3)}
+.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.14)}
+.hero small{opacity:.9;font-size:13px}.hero h1{font-size:27px;font-weight:900;margin-top:4px;line-height:1.15}.hero p{opacity:.92;margin-top:8px;font-size:14px}
+.big{border-radius:22px;padding:18px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:var(--card);transition:.15s}
+.big:active{transform:scale(.97)}.big .ic{font-size:32px;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--acc),var(--acc2))}
 .big b{font-size:18px;display:block}.big span{color:var(--dim);font-size:13px}
-.big.uc .ic{background:linear-gradient(135deg,#ff9f1a,#ff5e3a)}.big.tg .ic{background:linear-gradient(135deg,#2aabee,#1c7bd8)}
 .tabs{display:flex;gap:6px;background:var(--card);padding:5px;border-radius:16px;margin-bottom:14px;overflow-x:auto}
 .tab{flex:1;white-space:nowrap;text-align:center;padding:11px 10px;border-radius:12px;font-size:14px;font-weight:700;color:var(--dim);cursor:pointer;transition:.2s}
-.tab.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#111}
+.tab.on{background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff}
 h2{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:6px 4px 12px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pack{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px 14px;cursor:pointer;position:relative;transition:.15s}
-.pack:active{transform:scale(.96)}.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent)}
+.pack:active{transform:scale(.96)}.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,59,71,.22)}
 .pack .t{font-size:19px;font-weight:800}.pack .p{color:var(--dim);margin-top:6px;font-size:14px}
-.tag{position:absolute;top:-8px;right:10px;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#111;font-size:10px;font-weight:800;padding:3px 8px;border-radius:8px}
-.nav{position:fixed;left:0;right:0;bottom:0;display:flex;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:rgba(11,13,18,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:5}
-.nav div{flex:1;text-align:center;font-size:11px;color:var(--dim);padding:6px;cursor:pointer;font-weight:600}.nav div i{display:block;font-style:normal;font-size:22px}
-.nav div.on{color:var(--acc)}
-.sheet{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom));background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:14px;z-index:6;display:none;box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+.tag{position:absolute;top:-8px;right:10px;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:8px}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(12,8,9,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);z-index:5}
+.nav div{flex:1;text-align:center;font-size:10px;color:var(--dim);padding:5px 2px;cursor:pointer;font-weight:600}.nav div i{display:block;font-style:normal;font-size:21px}.nav div.on{color:var(--acc)}
+.sheet{position:fixed;left:12px;right:12px;bottom:calc(66px + env(safe-area-inset-bottom));background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:14px;z-index:6;display:none;box-shadow:0 -10px 40px rgba(0,0,0,.6)}
 .sheet.on{display:block;animation:in .2s}.sheet .nm{font-weight:800;margin-bottom:10px;font-size:15px}
-input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;color:var(--txt);font-size:16px;padding:14px;outline:none;margin-bottom:6px}input:focus{border-color:var(--acc)}
-.err{color:#ff6b6b;font-size:12px;min-height:14px;margin-bottom:6px}
-.btn{width:100%;border:0;border-radius:15px;padding:16px;font-size:16px;font-weight:800;color:#111;background:linear-gradient(90deg,var(--acc),var(--acc2));cursor:pointer}
-.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line);margin-top:10px}
-.me{text-align:center;padding:10px 0 18px}.av{width:92px;height:92px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-size:38px;font-weight:900;color:#111;overflow:hidden}
+input,textarea{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;color:var(--txt);font-size:16px;padding:14px;outline:none;margin-bottom:6px;font-family:inherit}input:focus,textarea:focus{border-color:var(--acc)}
+.err{color:#ff7b84;font-size:12px;min-height:14px;margin-bottom:6px}
+.btn{width:100%;border:0;border-radius:15px;padding:15px;font-size:15px;font-weight:800;color:#fff;background:linear-gradient(90deg,var(--acc),var(--acc2));cursor:pointer;margin-top:6px}
+.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line)}.btn:disabled{opacity:.5}
+.me{text-align:center;padding:10px 0 18px}.av{width:90px;height:90px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-size:38px;font-weight:900;color:#fff;overflow:hidden}
 .av img{width:100%;height:100%;object-fit:cover}.me h3{font-size:22px}.me span{color:var(--dim)}
-.row{display:flex;justify-content:space-between;padding:15px 16px;background:var(--card);border-radius:14px;margin-bottom:8px}.row span{color:var(--dim)}
+.row{display:flex;justify-content:space-between;padding:14px 16px;background:var(--card);border-radius:14px;margin-bottom:8px}.row span{color:var(--dim)}
 .note{color:var(--dim);font-size:13px;text-align:center;margin-top:14px;line-height:1.5}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
+.code{font-family:monospace;font-size:15px;word-break:break-all;background:var(--bg);border:1.5px dashed var(--acc);border-radius:12px;padding:12px;margin-top:10px;display:none;cursor:pointer}
+.rv b{display:block}.rv small{color:var(--dim)}.rv p{margin-top:6px;font-size:14px;line-height:1.4}
+.st{font-size:30px;letter-spacing:4px;cursor:pointer;margin:6px 0 10px}.st span{opacity:.3}.st span.on{opacity:1}
+.avg{font-size:40px;font-weight:900;text-align:center}
+.res{text-align:center;padding-top:50px}.res h1{font-size:24px;margin-bottom:10px}.res p{color:var(--dim)}
 </style></head><body>
  
 <div class="scr on" id="home">
-  <div class="hero"><small>👋 <span id="hi">Привет</span></small><h1>Добро пожаловать<br>в KABAN UC</h1><p>Быстрое пополнение UC для PUBG Mobile, звёзды и Premium для Telegram</p></div>
-  <div class="big uc" onclick="openSec('uc')"><div class="ic">💎</div><div><b>PUBG Mobile</b><span>UC · Plus подписка · коды на UC</span></div></div>
-  <div class="big tg" onclick="openSec('tg')"><div class="ic">⭐</div><div><b>Telegram</b><span>Звёзды · Premium</span></div></div>
-  <div class="note">Оплата в боте: Stars или CryptoBot. Выдача — автоматически или в течение 15 минут.</div>
+  <div class="hero"><small>👋 <span id="hi">Привет</span></small><h1>Добро пожаловать<br>в KABAN UC</h1><p>UC для PUBG Mobile, звёзды и Premium для Telegram. Оплата прямо здесь.</p></div>
+  <div class="big" onclick="openSec('uc')"><div class="ic">💎</div><div><b>PUBG Mobile</b><span>UC · Plus подписка · коды на UC</span></div></div>
+  <div class="big" onclick="openSec('tg')"><div class="ic">⭐</div><div><b>Telegram</b><span>Звёзды · Premium</span></div></div>
+  <div class="big" onclick="goRef()"><div class="ic">👥</div><div><b>Приглашай друзей</b><span>Получай <span id="pc">5</span>% с их покупок на баланс</span></div></div>
 </div>
  
 <div class="scr" id="sec"><h2 id="secname"></h2><div class="tabs" id="tabs"></div><div class="grid" id="grid"></div></div>
@@ -52,63 +56,109 @@ input{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radi
 <div class="scr" id="prof">
   <div class="me"><div class="av" id="av"></div><h3 id="pn"></h3><span id="pu"></span></div>
   <div class="row"><span>ID</span><b id="pid2"></b></div>
-  <button class="btn alt" onclick="deep('profile')">📋 Полный профиль в боте</button>
+  <div class="row"><span>Регистрация в боте</span><b id="preg"></b></div>
+  <div class="row"><span>Заказов</span><b id="pord"></b></div>
+  <div class="row"><span>Баланс</span><b id="pbal"></b></div>
+  <div class="row"><span>Скидка по промокоду</span><b id="pdis"></b></div>
+  <div class="box" style="margin-top:12px"><input id="promo" placeholder="Промокод"><div class="err" id="perr"></div><button class="btn" style="margin-top:0" onclick="usePromo()">🎟 Применить промокод</button></div>
   <button class="btn alt" onclick="tg.openTelegramLink('https://t.me/neleron')">💬 Поддержка</button>
 </div>
  
-<div class="sheet" id="sheet"><div class="nm" id="snm"></div><input id="inp"><div class="err" id="err"></div><button class="btn" id="buy"></button></div>
+<div class="scr" id="ref">
+  <div class="hero"><h1>👥 Реферальная программа</h1><p>Делись ссылкой — получай <b id="rp"></b>% с каждой покупки друга на баланс. Балансом можно оплачивать заказы.</p></div>
+  <div class="row"><span>Приглашено</span><b id="rn"></b></div>
+  <div class="row"><span>Заработано</span><b id="re"></b></div>
+  <div class="row"><span>Баланс</span><b id="rb"></b></div>
+  <div class="box"><small style="color:var(--dim)">Твоя ссылка</small><div id="rl" style="word-break:break-all;margin-top:6px;font-size:14px"></div></div>
+  <button class="btn" onclick="share()">📤 Поделиться</button>
+  <button class="btn alt" onclick="copyRef()">📋 Скопировать ссылку</button>
+</div>
+ 
+<div class="scr" id="rev">
+  <div class="avg" id="avg">—</div><div class="note" id="cnt" style="margin:0 0 14px"></div>
+  <div class="box"><b>Оставить отзыв</b><div class="st" id="stars"></div><textarea id="rtxt" rows="3" maxlength="300" placeholder="Расскажи о покупке (5–300 символов)"></textarea><div class="err" id="rerr"></div><button class="btn" style="margin-top:0" onclick="sendRev()">Отправить</button></div>
+  <div id="rlist"></div>
+</div>
+ 
+<div class="scr" id="res"><div class="res"><h1 id="rt"></h1><p id="rd"></p><div class="code" id="rc" onclick="copyCode()"></div><button class="btn alt" style="margin-top:24px" onclick="goHome()">На главную</button></div></div>
+ 
+<div class="sheet" id="sheet"><div class="nm" id="snm"></div><input id="inp"><div class="err" id="err"></div><div id="pays"></div></div>
  
 <div class="nav">
   <div class="on" id="n-home" onclick="goHome()"><i>🏠</i>Главная</div>
+  <div id="n-rev" onclick="goRev()"><i>⭐</i>Отзывы</div>
+  <div id="n-ref" onclick="goRef()"><i>👥</i>Рефералы</div>
   <div id="n-prof" onclick="goProf()"><i>👤</i>Профиль</div>
-  <div onclick="tg.openTelegramLink('https://t.me/neleron')"><i>💬</i>Поддержка</div>
+  <div onclick="tg.openTelegramLink('https://t.me/neleron')"><i>💬</i>Помощь</div>
 </div>
  
 <script>
-const tg=Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#0b0d12');tg.setBackgroundColor('#0b0d12');
-const BOT=new URLSearchParams(location.search).get('bot')||'';
-const SECS={uc:{n:'💎 PUBG Mobile',acc:['#ff9f1a','#ff5e3a'],tabs:[['uc','Купить UC'],['plus','Plus подписка'],['codes','Код на UC']]},
-            tg:{n:'⭐ Telegram',acc:['#2aabee','#1c7bd8'],tabs:[['stars','Звёзды'],['premium','Премиум']]}};
+const tg=Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#0c0809');tg.setBackgroundColor('#0c0809');
+const P=new URLSearchParams(location.search),BOT=P.get('bot')||'';
+const SECS={uc:{n:'💎 PUBG Mobile',tabs:[['uc','Купить UC'],['plus','Plus подписка'],['codes','Код на UC']]},tg:{n:'⭐ Telegram',tabs:[['stars','Звёзды'],['premium','Премиум']]}};
 const NEED={uc:'pid',plus:'pid',codes:'none',stars:'user',premium:'user'};
-let CAT=null,S='uc',T='uc',sel=null;
-const $=id=>document.getElementById(id);
-const user=(tg.initDataUnsafe||{}).user||{};
+let CAT=null,ME=null,S='uc',T='uc',sel=null,rate=0;
+const $=id=>document.getElementById(id),user=(tg.initDataUnsafe||{}).user||{};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('hi').textContent=user.first_name?('Привет, '+user.first_name+'!'):'Привет!';
+async function api(p,b){try{const r=await fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...(b||{}),init:tg.initData})});return await r.json()}catch(e){return{error:'Нет связи с сервером'}}}
+async function loadMe(){const m=await api('me');if(!m.error){ME=m;$('pc').textContent=m.percent}return ME}
+loadMe();
  
 function scr(id,nav){document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==id));
-  ['home','prof'].forEach(k=>$('n-'+k).classList.toggle('on',k==nav));
-  $('sheet').classList.remove('on');sel=null;
-  nav=='home'&&id=='home'?tg.BackButton.hide():tg.BackButton.show()}
-function goHome(){scr('home','home');tg.BackButton.hide()}
-tg.BackButton.onClick(goHome);
+  ['home','rev','ref','prof'].forEach(k=>$('n-'+k).classList.toggle('on',k==nav));
+  $('sheet').classList.remove('on');sel=null;id=='home'?tg.BackButton.hide():tg.BackButton.show();scrollTo(0,0)}
+function goHome(){scr('home','home')}tg.BackButton.onClick(goHome);
  
-async function load(){if(CAT)return;try{CAT=await (await fetch('catalog.json?'+Date.now())).json()}catch(e){CAT={}}}
-async function openSec(s,tab){await load();S=s;T=tab||SECS[s].tabs[0][0];
-  const a=SECS[s].acc;document.documentElement.style.setProperty('--acc',a[0]);document.documentElement.style.setProperty('--acc2',a[1]);
-  $('secname').textContent=SECS[s].n;scr('sec','home');tg.BackButton.show();draw()}
+async function openSec(s,tab){if(!CAT)try{CAT=await (await fetch('catalog.json?'+Date.now())).json()}catch(e){CAT={}}
+  S=s;T=tab||SECS[s].tabs[0][0];$('secname').textContent=SECS[s].n;scr('sec','home');draw()}
 function draw(){sel=null;$('sheet').classList.remove('on');
   $('tabs').innerHTML=SECS[S].tabs.map(t=>`<div class="tab ${t[0]==T?'on':''}" onclick="T='${t[0]}';draw()">${t[1]}</div>`).join('');
-  const items=CAT[T]||[];
-  $('grid').innerHTML=items.length?items.map((p,i)=>`<div class="pack" id="p${i}" onclick="pick(${i})">${p.tag?`<div class="tag">${p.tag}</div>`:''}<div class="t">${p.title}</div><div class="p">${p.rub} ₽</div></div>`).join(''):'<div class="note">Товары пока не загружены</div>'}
-function pick(i){sel=CAT[T][i];tg.HapticFeedback.impactOccurred('light');
+  const it=CAT[T]||[];$('grid').innerHTML=it.length?it.map((p,i)=>`<div class="pack" onclick="pick(${i})">${p.tag?`<div class="tag">${esc(p.tag)}</div>`:''}<div class="t">${esc(p.title)}</div><div class="p">${p.rub} ₽</div></div>`).join(''):'<div class="note">Товары пока не загружены</div>'}
+const fin=p=>Math.max(1,Math.round(p.rub*(100-((ME&&ME.discount)||0))/100));
+async function pick(i){if(!ME)await loadMe();sel=CAT[T][i];tg.HapticFeedback.impactOccurred('light');
   document.querySelectorAll('.pack').forEach((e,k)=>e.classList.toggle('sel',k==i));
-  const n=NEED[T],inp=$('inp');$('err').textContent='';inp.value='';
-  inp.style.display=n=='none'?'none':'block';
-  inp.placeholder=n=='pid'?'Твой PUBG ID (8–12 цифр)':'@username получателя (пусто — себе)';
-  inp.inputMode=n=='pid'?'numeric':'text';
-  $('snm').textContent=sel.title;$('buy').textContent='Оплатить '+sel.rub+' ₽';$('sheet').classList.add('on')}
+  const n=NEED[T],inp=$('inp'),f=fin(sel);$('err').textContent='';inp.value='';inp.style.display=n=='none'?'none':'block';
+  inp.placeholder=n=='pid'?'Твой PUBG ID (8–12 цифр)':'@username получателя (пусто — себе)';inp.inputMode=n=='pid'?'numeric':'text';
+  $('snm').textContent=sel.title+' · '+f+' ₽'+(ME&&ME.discount?' (скидка '+ME.discount+'%)':'');
+  const b=[];if(ME){if(T!='stars'&&T!='premium')b.push(['stars','⭐ Stars · '+Math.ceil(f/ME.rate)+'⭐']);if(ME.crypto)b.push(['crypto','🪙 CryptoBot']);if(ME.balance>=f)b.push(['balance','💰 Баланс ('+ME.balance+' ₽)'])}
+  $('pays').innerHTML=b.length?b.map(x=>`<button class="btn" onclick="pay('${x[0]}',this)">${x[1]}</button>`).join(''):'<div class="note">Открой магазин через бота, чтобы оплатить</div>';
+  $('sheet').classList.add('on')}
 $('inp').oninput=e=>{if(NEED[T]=='pid')e.target.value=e.target.value.replace(/\D/g,'').slice(0,12);$('err').textContent=''};
-$('buy').onclick=()=>{
-  if(!BOT){$('err').textContent='Открой магазин через кнопку в боте';return}
-  let t='x',n=NEED[T],v=$('inp').value.trim();
+async function pay(m,el){const n=NEED[T];let t='x',v=$('inp').value.trim();
   if(n=='pid'){if(v.length<8){$('err').textContent='Введи корректный PUBG ID';return}t=v}
   if(n=='user'){v=v.replace('@','');if(!v)t='me';else if(/^[A-Za-z0-9_]{4,32}$/.test(v))t=v;else{$('err').textContent='Неверный username';return}}
-  deep('b_'+sel.id+'_'+t)};
-function deep(p){tg.openTelegramLink('https://t.me/'+BOT+'?start='+p);setTimeout(()=>tg.close(),300)}
+  el.disabled=true;const r=await api('order',{item:sel.id,target:t,method:m});el.disabled=false;
+  if(r.error){$('err').textContent=r.error;return}
+  if(m=='stars')tg.openInvoice(r.link,s=>{if(s=='paid')wait(r.id);else $('err').textContent=s=='cancelled'?'Оплата отменена':'Ошибка оплаты, попробуй ещё раз'});
+  else if(m=='crypto'){tg.openTelegramLink(r.url);wait(r.id)}else wait(r.id)}
+async function wait(id){scr('res','home');tg.BackButton.hide();$('rt').textContent='⏳ Проверяем оплату…';$('rd').textContent='Это займёт несколько секунд';$('rc').style.display='none';
+  for(let i=0;i<150;i++){const s=await api('status',{id});
+    if(s.status=='paid'||s.status=='done'){loadMe();$('rt').textContent='✅ Заказ #'+id+' оплачен';tg.HapticFeedback.notificationOccurred('success');
+      if(s.result){$('rd').textContent='Твой код (нажми, чтобы скопировать):';$('rc').style.display='block';$('rc').textContent=s.result}
+      else $('rd').textContent='Выдадим заказ в течение 15 минут и напишем тебе в боте.';return}
+    if(s.status=='cancel'){$('rt').textContent='❌ Заказ отменён';$('rd').textContent='Попробуй оформить заказ заново.';return}
+    await new Promise(r=>setTimeout(r,2500))}
+  $('rt').textContent='Оплата пока не найдена';$('rd').textContent='Если ты оплатил — напиши в поддержку, указав заказ #'+id}
+function copyCode(){navigator.clipboard&&navigator.clipboard.writeText($('rc').textContent).then(()=>tg.showAlert('Код скопирован'))}
  
-function goProf(){const n=(user.first_name||'')+' '+(user.last_name||'');$('pn').textContent=n.trim()||'Гость';
+async function goProf(){scr('prof','prof');const n=((user.first_name||'')+' '+(user.last_name||'')).trim();$('pn').textContent=n||'Гость';
   $('pu').textContent=user.username?'@'+user.username:'без юзернейма';$('pid2').textContent=user.id||'—';
-  $('av').innerHTML=user.photo_url?`<img src="${user.photo_url}">`:(n.trim()[0]||'?');scr('prof','prof')}
+  $('av').innerHTML=user.photo_url?`<img src="${esc(user.photo_url)}">`:esc(n[0]||'?');
+  await loadMe();if(ME){$('preg').textContent=ME.reg;$('pord').textContent=ME.orders+' на '+ME.spent+' ₽';$('pbal').textContent=ME.balance+' ₽';$('pdis').textContent=ME.discount+'%'}}
+async function usePromo(){const r=await api('promo',{code:$('promo').value});$('perr').style.color=r.ok?'#5be584':'#ff7b84';$('perr').textContent=r.msg||r.error;if(r.ok){$('promo').value='';loadMe().then(()=>$('pdis').textContent=ME.discount+'%')}}
  
-const start=new URLSearchParams(location.search).get('s');if(SECS[start])openSec(start);
+async function goRef(){scr('ref','ref');await loadMe();if(!ME)return;$('rp').textContent=ME.percent;$('rn').textContent=ME.refs;$('re').textContent=ME.earned+' ₽';$('rb').textContent=ME.balance+' ₽';$('rl').textContent=ME.link}
+function share(){if(ME)tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(ME.link)+'&text='+encodeURIComponent('Пополняй UC и звёзды в KABAN UC 🔥'))}
+function copyRef(){if(ME)(navigator.clipboard?navigator.clipboard.writeText(ME.link):Promise.reject()).then(()=>tg.showAlert('Ссылка скопирована'),()=>tg.showAlert(ME.link))}
+ 
+let rate_=5;
+function drawStars(){$('stars').innerHTML=[1,2,3,4,5].map(n=>`<span class="${n<=rate_?'on':''}" onclick="rate_=${n};drawStars()">⭐</span>`).join('')}
+async function goRev(){scr('rev','rev');drawStars();$('rerr').textContent='';
+  try{const d=await (await fetch('/api/reviews')).json();$('avg').textContent=d.count?('⭐ '+d.avg):'—';$('cnt').textContent=d.count?('Отзывов: '+d.count):'Пока нет отзывов — стань первым!';
+    $('rlist').innerHTML=d.items.map(r=>`<div class="box rv"><b>${'⭐'.repeat(r.rating)} ${esc(r.name)}</b><small>${esc(r.ts)}</small><p>${esc(r.text)}</p></div>`).join('')}catch(e){}}
+async function sendRev(){const t=$('rtxt').value.trim();if(t.length<5){$('rerr').style.color='#ff7b84';$('rerr').textContent='Напиши хотя бы 5 символов';return}
+  const r=await api('review',{rating:rate_,text:t});$('rerr').style.color=r.ok?'#5be584':'#ff7b84';$('rerr').textContent=r.ok?'Спасибо за отзыв! 💖':r.error;if(r.ok){$('rtxt').value='';goRev();$('rerr').style.color='#5be584';$('rerr').textContent='Спасибо за отзыв! 💖'}}
+ 
+const st=P.get('s');if(SECS[st])openSec(st);
 </script></body></html>
