@@ -1,65 +1,283 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>UC Shop</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-:root{--bg:#0d0f14;--card:#171a22;--line:#262b37;--txt:#f4f5f7;--dim:#8b92a3;--acc:#ff9f1a;--acc2:#ff5e3a}
-*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif;padding:16px 16px 110px}
-.hero{border-radius:22px;padding:22px;margin-bottom:18px;background:linear-gradient(135deg,#ff9f1a,#ff5e3a 70%,#c1272d);position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.15)}
-.hero h1{font-size:24px;font-weight:800}.hero p{opacity:.9;margin-top:4px;font-size:14px}
-h2{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:18px 4px 10px}
-input{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:14px;color:var(--txt);font-size:17px;padding:15px 16px;outline:none;transition:.2s}
-input:focus{border-color:var(--acc)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pack{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px 14px;cursor:pointer;transition:.18s;position:relative}
-.pack:active{transform:scale(.97)}
-.pack.sel{border-color:var(--acc);background:linear-gradient(160deg,#2a2114,#171a22)}
-.pack .uc{font-size:24px;font-weight:800}.pack .uc span{font-size:13px;color:var(--acc);margin-left:3px}
-.pack .price{color:var(--dim);margin-top:6px;font-size:14px}
-.tag{position:absolute;top:-8px;right:10px;background:linear-gradient(90deg,var(--acc),var(--acc2));color:#111;font-size:10px;font-weight:800;padding:3px 8px;border-radius:8px}
-.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 35%)}
-.btn{width:100%;border:0;border-radius:16px;padding:17px;font-size:17px;font-weight:800;color:#111;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:.2s}
-.btn:disabled{opacity:.35}
-.err{color:#ff6b6b;font-size:13px;margin:6px 4px 0;min-height:16px}
-</style></head><body>
-<div class="hero"><h1>🎮 PUBG Mobile UC</h1><p>Быстрое пополнение по ID · оплата звёздами</p></div>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KABAN UC</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-green: #2ed573;
+            --accent-blue: #1e90ff;
+            --text-color: #ffffff;
+        }
 
-<h2>Твой PUBG ID</h2>
-<input id="pid" inputmode="numeric" maxlength="12" placeholder="Например 5123456789">
-<div class="err" id="err"></div>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+        }
 
-<h2>Выбери пак</h2>
-<div class="grid" id="grid"></div>
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 15px;
+        }
 
-<div class="bar"><button class="btn" id="buy" disabled>Выбери пак</button></div>
+        .header h1 {
+            margin: 0;
+            color: var(--accent-green);
+            font-size: 24px;
+        }
 
-<script>
-const tg=Telegram.WebApp;tg.ready();tg.expand();
-tg.setHeaderColor('#0d0f14');tg.setBackgroundColor('#0d0f14');
-// те же цены, что в uc_bot.py (реальная цена всё равно берётся на сервере)
-const PACKS=[
- {id:"uc60",uc:60,rub:95},{id:"uc325",uc:325,rub:480},
- {id:"uc660",uc:660,rub:950,tag:"ХИТ"},{id:"uc1800",uc:1800,rub:2400},
- {id:"uc3850",uc:3850,rub:4800,tag:"ВЫГОДНО"},{id:"uc8100",uc:8100,rub:9500}];
-let sel=null;
-const grid=document.getElementById('grid'),buy=document.getElementById('buy'),pid=document.getElementById('pid'),err=document.getElementById('err');
-PACKS.forEach(p=>{
- const d=document.createElement('div');d.className='pack';
- d.innerHTML=(p.tag?`<div class="tag">${p.tag}</div>`:'')+`<div class="uc">${p.uc}<span>UC</span></div><div class="price">${p.rub} ₽</div>`;
- d.onclick=()=>{sel=p;document.querySelectorAll('.pack').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');tg.HapticFeedback.impactOccurred('light');upd()};
- grid.appendChild(d)});
-function upd(){
- const ok=sel&&pid.value.length>=8;
- buy.disabled=!ok;
- buy.textContent=sel?`Оплатить ${sel.rub} ₽ · ${sel.uc} UC`:'Выбери пак';
-}
-pid.oninput=()=>{pid.value=pid.value.replace(/\D/g,'');err.textContent='';upd()};
-buy.onclick=()=>{
- if(pid.value.length<8){err.textContent='Введи корректный ID (8–12 цифр)';return}
- tg.sendData(JSON.stringify({pack:sel.id,pubg_id:pid.value}));
-};
-</script></body></html>
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 14px;
+            border-radius: 8px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-green);
+            color: #000;
+            border-color: var(--accent-green);
+        }
+
+        .tab-btn.blue.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #fff;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #2a2a2a;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .item-price {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .buy-btn {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .buy-btn.blue {
+            background: var(--accent-blue);
+            color: #fff;
+        }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #333;
+        }
+
+        .footer-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .footer-btn.active {
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🐗 KABAN UC</h1>
+        <p style="margin: 5px 0 0; color: #888; font-size: 13px;">Добро пожаловать в магазин!</p>
+    </div>
+
+    <!-- Вкладки навигации -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('uc')">Купить UC</button>
+        <button class="tab-btn" onclick="switchTab('plus')">Plus Подписка</button>
+        <button class="tab-btn" onclick="switchTab('code')">Код на UC</button>
+        <button class="tab-btn blue" onclick="switchTab('stars')">Звёзды / Premium</button>
+    </div>
+
+    <!-- Разделы товаров -->
+    <div id="sec-uc" class="section active">
+        <div class="item-card">
+            <div>
+                <div class="item-title">60 UC</div>
+                <div class="item-price">90 ₽</div>
+            </div>
+            <button class="buy-btn" onclick="buyItem('60 UC')">Купить</button>
+        </div>
+        <div class="item-card">
+            <div>
+                <div class="item-title">325 UC</div>
+                <div class="item-price">450 ₽</div>
+            </div>
+            <button class="buy-btn" onclick="buyItem('325 UC')">Купить</button>
+        </div>
+        <div class="item-card">
+            <div>
+                <div class="item-title">660 UC</div>
+                <div class="item-price">890 ₽</div>
+            </div>
+            <button class="buy-btn" onclick="buyItem('660 UC')">Купить</button>
+        </div>
+    </div>
+
+    <div id="sec-plus" class="section">
+        <div class="item-card">
+            <div>
+                <div class="item-title">PUBG Prime Plus (1 мес)</div>
+                <div class="item-price">990 ₽</div>
+            </div>
+            <button class="buy-btn" onclick="buyItem('Prime Plus')">Купить</button>
+        </div>
+    </div>
+
+    <div id="sec-code" class="section">
+        <div class="item-card">
+            <div>
+                <div class="item-title">Промокод 60 UC</div>
+                <div class="item-price">95 ₽</div>
+            </div>
+            <button class="buy-btn" onclick="buyItem('Код 60 UC')">Купить</button>
+        </div>
+    </div>
+
+    <div id="sec-stars" class="section">
+        <div class="item-card">
+            <div>
+                <div class="item-title">50 Telegram Stars</div>
+                <div class="item-price">120 ₽</div>
+            </div>
+            <button class="buy-btn blue" onclick="buyItem('50 Stars')">Купить</button>
+        </div>
+        <div class="item-card">
+            <div>
+                <div class="item-title">Telegram Premium (3 мес)</div>
+                <div class="item-price">1490 ₽</div>
+            </div>
+            <button class="buy-btn blue" onclick="buyItem('TG Premium 3M')">Купить</button>
+        </div>
+    </div>
+
+    <!-- Профиль -->
+    <div id="sec-profile" class="section">
+        <div style="background: var(--card-bg); padding: 15px; border-radius: 12px;">
+            <h3>Профиль</h3>
+            <p id="user-info">Загрузка данных...</p>
+        </div>
+    </div>
+
+    <!-- Поддержка -->
+    <div id="sec-support" class="section">
+        <div style="background: var(--card-bg); padding: 15px; border-radius: 12px; text-align: center;">
+            <h3>Служба поддержки</h3>
+            <p>По всем вопросам обращайтесь к нашему менеджеру:</p>
+            <a href="https://t.me/neleron" style="color: var(--accent-green); font-weight: bold; font-size: 18px; text-decoration: none;">@neleron</a>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <!-- Нижняя панель -->
+    <div class="footer-nav">
+        <button class="footer-btn active" onclick="switchTab('uc')">🛒 Магазин</button>
+        <button class="footer-btn" onclick="switchTab('profile')">👤 Профиль</button>
+        <button class="footer-btn" onclick="switchTab('support')">👨‍💻 Поддержка</button>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачивает Mini App на весь экран
+
+        // Вывод профиля из Telegram API
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const u = tg.initDataUnsafe.user;
+            document.getElementById('user-info').innerHTML = `
+                <b>Имя:</b> ${u.first_name}<br>
+                <b>Username:</b> @${u.username || 'нет'}<br>
+                <b>ID:</b> ${u.id}
+            `;
+        } else {
+            document.getElementById('user-info').innerHTML = "Открыто вне Telegram";
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            if(tab === 'uc') {
+                document.getElementById('sec-uc').classList.add('active');
+            } else if(tab === 'plus') {
+                document.getElementById('sec-plus').classList.add('active');
+            } else if(tab === 'code') {
+                document.getElementById('sec-code').classList.add('active');
+            } else if(tab === 'stars') {
+                document.getElementById('sec-stars').classList.add('active');
+            } else if(tab === 'profile') {
+                document.getElementById('sec-profile').classList.add('active');
+            } else if(tab === 'support') {
+                document.getElementById('sec-support').classList.add('active');
+            }
+        }
+
+        function buyItem(itemName) {
+            tg.sendData(JSON.stringify({action: "buy", item: itemName}));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
