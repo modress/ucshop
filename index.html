@@ -97,3 +97,658 @@ body{
 .tab{
   flex:1;
   white-space:nowrap;
+  text-align:center;
+  padding:12px 14px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:700;
+  color:var(--dim);
+  cursor:pointer;
+  transition:.2s;
+}
+.tab.on{
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  color:#fff;
+  box-shadow:0 4px 15px var(--acc-glow);
+}
+
+h2{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin:10px 4px 12px;font-weight:800}
+
+/* Сетка крупных игровых товаров */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pack{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:20px;
+  padding:20px 16px;
+  cursor:pointer;
+  position:relative;
+  transition:all .2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:130px;
+}
+.pack:active{transform:scale(0.96)}
+.pack:hover{border-color:var(--acc);background:var(--card-hover);transform:translateY(-2px)}
+.pack.sel{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-glow)}
+.pack .t{font-size:20px;font-weight:900;letter-spacing:-0.5px}
+.pack .p{color:var(--green);margin-top:8px;font-size:16px;font-weight:800}
+.tag{
+  position:absolute;
+  top:-9px;
+  right:12px;
+  background:linear-gradient(90deg,var(--yellow),#f3722c);
+  color:#000;
+  font-size:10px;
+  font-weight:900;
+  padding:4px 9px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(255,183,3,0.3);
+}
+
+/* Нижняя навигация */
+.nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  display:flex;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(8,5,6,0.95);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  z-index:5;
+}
+.nav div{
+  flex:1;
+  text-align:center;
+  font-size:11px;
+  color:var(--dim);
+  padding:6px 2px;
+  cursor:pointer;
+  font-weight:700;
+  transition:color .2s;
+}
+.nav div i{display:block;font-style:normal;font-size:22px;margin-bottom:2px}
+.nav div.on{color:var(--acc)}
+
+/* Модальная шторка заказа */
+.sheet{
+  position:fixed;
+  left:12px;
+  right:12px;
+  bottom:calc(70px + env(safe-area-inset-bottom));
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  z-index:6;
+  display:none;
+  box-shadow:0 -15px 50px rgba(0,0,0,0.8);
+}
+.sheet.on{display:block;animation:in .2s cubic-bezier(0,0,0.2,1)}
+.sheet .nm{font-weight:900;margin-bottom:14px;font-size:18px;display:flex;justify-content:space-between;align-items:center}
+
+input,textarea{
+  width:100%;
+  background:var(--bg);
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  color:var(--txt);
+  font-size:16px;
+  padding:15px;
+  outline:none;
+  margin-bottom:8px;
+  font-family:inherit;
+  transition:border-color .2s;
+}
+input:focus,textarea:focus{border-color:var(--acc)}
+.err{color:#ff7b84;font-size:13px;min-height:16px;margin-bottom:8px;font-weight:600}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  padding:16px;
+  font-size:16px;
+  font-weight:900;
+  color:#fff;
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  cursor:pointer;
+  margin-top:8px;
+  box-shadow:0 8px 25px var(--acc-glow);
+  transition:transform .15s;
+}
+.btn:active{transform:scale(0.97)}
+.btn.alt{background:var(--card);color:var(--txt);border:1.5px solid var(--line);box-shadow:none}
+.btn:disabled{opacity:.5;pointer-events:none}
+
+/* Профиль */
+.me{text-align:center;padding:10px 0 20px}
+.av{
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  display:grid;
+  place-items:center;
+  font-size:36px;
+  font-weight:900;
+  color:#fff;
+  overflow:hidden;
+  box-shadow:0 8px 25px var(--acc-glow);
+  border:3px solid var(--line);
+}
+.av img{width:100%;height:100%;object-fit:cover}
+.me h3{font-size:24px;font-weight:900;margin-bottom:2px}
+.me span{color:var(--dim);font-size:14px}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  margin-bottom:10px;
+  font-size:15px;
+}
+.row span{color:var(--dim)}
+.row b{font-weight:800}
+
+.note{color:var(--dim);font-size:13px;text-align:center;margin-top:16px;line-height:1.5}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+
+.code{
+  font-family:monospace;
+  font-size:16px;
+  word-break:break-all;
+  background:var(--bg);
+  border:1.5px dashed var(--acc);
+  border-radius:14px;
+  padding:14px;
+  margin-top:12px;
+  display:none;
+  cursor:pointer;
+  color:var(--yellow);
+  text-align:center;
+  font-weight:bold;
+}
+
+.rv b{display:block;font-size:15px;margin-bottom:2px}
+.rv small{color:var(--dim)}
+.rv p{margin-top:8px;font-size:14px;line-height:1.4}
+
+.st{font-size:32px;letter-spacing:4px;cursor:pointer;margin:8px 0 12px;text-align:center}
+.st span{opacity:.3;transition:opacity .15s}
+.st span.on{opacity:1}
+.avg{font-size:48px;font-weight:900;text-align:center;color:var(--yellow)}
+
+.res{text-align:center;padding-top:40px}
+.res h1{font-size:26px;margin-bottom:12px;font-weight:900}
+.res p{color:var(--dim);line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+<div class="scr on" id="home">
+  <div class="hero">
+    <small>👋 <span id="hi">Привет</span></small>
+    <h1>KABAN UC & STARS</h1>
+    <p>Официальный игровой маркетплейс. Выгодные цены на UC PUBG Mobile, Telegram Stars и Premium с мгновенной выдачей.</p>
+  </div>
+  
+  <div class="big-grid">
+    <div class="big" onclick="openSec('pubg')">
+      <div class="ic">💎</div>
+      <div>
+        <b>PUBG Mobile</b>
+        <span>UC наборы, Plus подписки, выгодные промо-коды</span>
+      </div>
+    </div>
+    <div class="big" onclick="openSec('tg')">
+      <div class="ic">⭐</div>
+      <div>
+        <b>Telegram Сервисы</b>
+        <span>Официальные Звёзды (Stars) и Telegram Premium</span>
+      </div>
+    </div>
+    <div class="big" onclick="goRef()">
+      <div class="ic">👥</div>
+      <div>
+        <b>Реферальная программа</b>
+        <span>Получай <span id="pc">5</span>% с покупок друзей на баланс</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- КАТАЛОГ ТОВАРОВ -->
+<div class="scr" id="sec">
+  <h2 id="secname"></h2>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<!-- ПРОФИЛЬ -->
+<div class="scr" id="prof">
+  <div class="me">
+    <div class="av" id="av"></div>
+    <h3 id="pn"></h3>
+    <span id="pu"></span>
+  </div>
+  
+  <div class="row"><span>Telegram ID</span><b id="pid2"></b></div>
+  <div class="row"><span>Регистрация в боте</span><b id="preg"></b></div>
+  <div class="row"><span>Всего заказов</span><b id="pord">0</b></div>
+  <div class="row"><span>Всего потрачено</span><b id="pspent">0 ₽</b></div>
+  <div class="row"><span>Ваш баланс</span><b id="pbal" style="color:var(--green)">0 ₽</b></div>
+  <div class="row"><span>Скидка по промокоду</span><b id="pdis" style="color:var(--yellow)">0%</b></div>
+
+  <div class="box" style="margin-top:14px">
+    <h3 style="font-size:15px;margin-bottom:10px">🎟 Активация промокода</h3>
+    <input id="promo" placeholder="Введите промокод (например KABAN)">
+    <div class="err" id="perr"></div>
+    <button class="btn" style="margin-top:0" onclick="usePromo()">Применить промокод</button>
+  </div>
+
+  <button class="btn alt" onclick="tg.openTelegramLink('https://t.me/neleron')">💬 Написать в поддержку (@neleron)</button>
+</div>
+
+<!-- РЕФЕРАЛЫ -->
+<div class="scr" id="ref">
+  <div class="hero">
+    <h1>👥 Рефералы</h1>
+    <p>Приглашайте друзей по вашей ссылке и получайте <b id="rp">5</b>% на баланс с каждой их покупки! Тратьте баланс на любые товары в один клик.</p>
+  </div>
+  <div class="row"><span>Приглашено друзей</span><b id="rn">0</b></div>
+  <div class="row"><span>Заработано с рефералов</span><b id="re">0 ₽</b></div>
+  <div class="row"><span>Доступный баланс</span><b id="rb" style="color:var(--green)">0 ₽</b></div>
+  
+  <div class="box">
+    <small style="color:var(--dim)">Ваша персональная ссылка</small>
+    <div id="rl" style="word-break:break-all;margin-top:8px;font-size:14px;font-weight:bold;color:var(--txt)"></div>
+  </div>
+  <button class="btn" onclick="share()">📤 Поделиться в Telegram</button>
+  <button class="btn alt" onclick="copyRef()">📋 Скопировать ссылку</button>
+</div>
+
+<!-- ОТЗЫВЫ -->
+<div class="scr" id="rev">
+  <div class="avg" id="avg">—</div>
+  <div class="note" id="cnt" style="margin:0 0 16px">Пока нет отзывов — станьте первым!</div>
+  
+  <div class="box">
+    <b style="font-size:16px">Оставить отзыв</b>
+    <div class="st" id="stars"></div>
+    <textarea id="rtxt" rows="3" maxlength="300" placeholder="Расскажите о покупке и скорости выдачи (от 5 до 300 символов)"></textarea>
+    <div class="err" id="rerr"></div>
+    <button class="btn" style="margin-top:0" onclick="sendRev()">Отправить отзыв</button>
+  </div>
+  <div id="rlist"></div>
+</div>
+
+<!-- СТРАНИЦА ОПЛАТЫ / РЕЗУЛЬТАТА -->
+<div class="scr" id="res">
+  <div class="res">
+    <h1 id="rt">⏳ Обработка платежа…</h1>
+    <p id="rd">Пожалуйста, подождите несколько секунд</p>
+    <div class="code" id="rc" onclick="copyCode()"></div>
+    <button class="btn alt" style="margin-top:28px" onclick="goHome()">Вернуться на главную</button>
+  </div>
+</div>
+
+<!-- ШТОРКА ОФОРМЛЕНИЯ ЗАКАЗА -->
+<div class="sheet" id="sheet">
+  <div class="nm">
+    <span id="snm">Товар</span>
+    <span id="sprice" style="color:var(--green)">0 ₽</span>
+  </div>
+  <input id="inp" placeholder="Введите данные">
+  <div class="err" id="err"></div>
+  <div id="pays"></div>
+  <button class="btn alt" style="margin-top:8px;background:transparent;border:none;color:var(--dim)" onclick="$('sheet').classList.remove('on')">Отмена</button>
+</div>
+
+<!-- НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ -->
+<div class="nav">
+  <div class="on" id="n-home" onclick="goHome()"><i>🏠</i>Главная</div>
+  <div id="n-rev" onclick="goRev()"><i>⭐</i>Отзывы</div>
+  <div id="n-ref" onclick="goRef()"><i>👥</i>Рефералы</div>
+  <div id="n-prof" onclick="goProf()"><i>👤</i>Профиль</div>
+  <div onclick="tg.openTelegramLink('https://t.me/neleron')"><i>💬</i>Помощь</div>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready(); tg.expand();
+try { tg.setHeaderColor('#080506'); tg.setBackgroundColor('#080506'); } catch(e){}
+
+const user = (tg.initDataUnsafe || {}).user || { id: 1234567, first_name: 'Игрок', username: 'kaban_user' };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// База данных каталога товаров
+const CAT = {
+  uc: [
+    {id:'uc_60', title:'60 UC', rub:95, tag:'Хит'},
+    {id:'uc_325', title:'325 UC', rub:480, tag:'Выгода'},
+    {id:'uc_660', title:'660 UC', rub:890, tag:'Топ'},
+    {id:'uc_1800', title:'1800 UC', rub:2390},
+    {id:'uc_3850', title:'3850 UC', rub:4790},
+    {id:'uc_8100', title:'8100 UC', rub:9490, tag:'MAX'}
+  ],
+  plus: [
+    {id:'plus_1', title:'Prime Plus (1 мес)', rub:990, tag:'Популярно'},
+    {id:'plus_3', title:'Prime Plus (3 мес)', rub:2790}
+  ],
+  codes: [
+    {id:'code_60', title:'Код 60 UC', rub:100},
+    {id:'code_325', title:'Код 325 UC', rub:500},
+    {id:'code_660', title:'Код 660 UC', rub:920}
+  ],
+  stars: [
+    {id:'st_50', title:'50 Stars', rub:120},
+    {id:'st_100', title:'100 Stars', rub:230},
+    {id:'st_250', title:'250 Stars', rub:550},
+    {id:'st_500', title:'500 Stars', rub:1100, tag:'Выгода'}
+  ],
+  premium: [
+    {id:'pr_3', title:'TG Premium (3 мес)', rub:1490},
+    {id:'pr_6', title:'TG Premium (6 мес)', rub:2490, tag:'Хит'},
+    {id:'pr_12', title:'TG Premium (1 год)', rub:3990, tag:'Экономия'}
+  ]
+};
+
+const SECS = {
+  pubg: { n: '💎 PUBG Mobile', tabs: [['uc','UC Наборы'],['plus','Plus Подписка'],['codes','Коды на UC']] },
+  tg: { n: '⭐ Telegram Сервисы', tabs: [['stars','Telegram Звёзды'],['premium','Telegram Premium']] }
+};
+
+const NEED = { uc:'pid', plus:'pid', codes:'none', stars:'user', premium:'user' };
+
+// Локальное сохранение профиля и баланса
+let ME = JSON.parse(localStorage.getItem('kaban_me') || JSON.stringify({
+  balance: 0,
+  spent: 0,
+  orders: 0,
+  discount: 0,
+  percent: 5,
+  refs: 0,
+  earned: 0,
+  reg: new Date().toLocaleDateString()
+}));
+
+function saveMe() { localStorage.setItem('kaban_me', JSON.stringify(ME)); }
+
+let S = 'pubg', T = 'uc', sel = null;
+const $ = id => document.getElementById(id);
+
+$('hi').textContent = user.first_name ? ('Привет, ' + user.first_name + '!') : 'Привет!';
+$('pc').textContent = ME.percent;
+
+function scr(id, nav) {
+  document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id == id));
+  ['home','rev','ref','prof'].forEach(k => {
+    let el = $('n-' + k);
+    if(el) el.classList.toggle('on', k == nav);
+  });
+  $('sheet').classList.remove('on');
+  sel = null;
+  id == 'home' ? tg.BackButton.hide() : tg.BackButton.show();
+  window.scrollTo(0, 0);
+}
+
+function goHome() { scr('home', 'home'); }
+tg.BackButton.onClick(goHome);
+
+function openSec(s, tab) {
+  S = s; 
+  T = tab || SECS[s].tabs[0][0];
+  $('secname').textContent = SECS[s].n;
+  scr('sec', 'home');
+  draw();
+}
+
+function draw() {
+  sel = null;
+  $('sheet').classList.remove('on');
+  $('tabs').innerHTML = SECS[S].tabs.map(t => `<div class="tab ${t[0]==T?'on':''}" onclick="T='${t[0]}';draw()">${t[1]}</div>`).join('');
+  const it = CAT[T] || [];
+  $('grid').innerHTML = it.length ? it.map((p, i) => `
+    <div class="pack" onclick="pick('${T}', ${i})">
+      ${p.tag ? `<div class="tag">${esc(p.tag)}</div>` : ''}
+      <div>
+        <div class="t">${esc(p.title)}</div>
+      </div>
+      <div class="p">${fin(p.rub)} ₽</div>
+    </div>
+  `).join('') : '<div class="note">Товары загружаются...</div>';
+}
+
+function fin(rub) {
+  let d = ME.discount || 0;
+  return Math.max(1, Math.round(rub * (100 - d) / 100));
+}
+
+function pick(catKey, i) {
+  sel = CAT[catKey][i];
+  tg.HapticFeedback.impactOccurred('medium');
+  
+  document.querySelectorAll('.pack').forEach((e, k) => e.classList.toggle('sel', k == i));
+  const n = NEED[catKey], inp = $('inp');
+  $('err').textContent = '';
+  inp.value = '';
+  
+  if (n == 'none') {
+    inp.style.display = 'none';
+  } else {
+    inp.style.display = 'block';
+    inp.placeholder = n == 'pid' ? 'Введите ваш PUBG ID (например 512345678)' : 'Введите @username получателя (или оставьте пустым для себя)';
+    inp.inputMode = n == 'pid' ? 'numeric' : 'text';
+  }
+  
+  let finalPrice = fin(sel.rub);
+  $('snm').textContent = sel.title;
+  $('sprice').textContent = finalPrice + ' ₽' + (ME.discount ? ` (-${ME.discount}%)` : '');
+  
+  let b = [];
+  b.push(['sbp', '🏦 Оплата по СБП / Карта']);
+  b.push(['crypto', '⚡ Crypto Bot (USDT / TON)']);
+  if(catKey == 'stars' || catKey == 'premium') {
+    b.push(['stars', '⭐ Telegram Stars']);
+  }
+  if(ME.balance >= finalPrice) {
+    b.push(['balance', `💰 С баланса (${ME.balance} ₽)`]);
+  }
+  
+  $('pays').innerHTML = b.map(x => `<button class="btn" style="margin-top:8px" onclick="pay('${x[0]}')">${x[1]}</button>`).join('');
+  $('sheet').classList.add('on');
+}
+
+$('inp').oninput = e => {
+  if(NEED[T] == 'pid') e.target.value = e.target.value.replace(/\D/g, '').slice(0, 12);
+  $('err').textContent = '';
+};
+
+async function pay(method) {
+  const n = NEED[T];
+  let v = $('inp').value.trim();
+  if(n == 'pid') {
+    if(v.length < 6) { $('err').textContent = 'Введите корректный PUBG ID (от 6 цифр)'; return; }
+  }
+  if(n == 'user') {
+    v = v.replace('@','');
+    if(v && !/^[A-Za-z0-9_]{4,32}$/.test(v)) { $('err').textContent = 'Неверный формат username'; return; }
+  }
+  
+  let finalPrice = fin(sel.rub);
+  
+  if(method == 'balance') {
+    if(ME.balance < finalPrice) { $('err').textContent = 'Недостаточно средств на балансе'; return; }
+    ME.balance -= finalPrice;
+  }
+  
+  ME.orders += 1;
+  ME.spent += finalPrice;
+  ME.earned += Math.round(finalPrice * (ME.percent / 100));
+  saveMe();
+  
+  $('sheet').classList.remove('on');
+  scr('res', 'home');
+  tg.BackButton.hide();
+  
+  $('rt').textContent = '⏳ Обработка платежа…';
+  $('rd').textContent = 'Проверяем статус транзакции';
+  $('rc').style.display = 'none';
+  
+  setTimeout(() => {
+    let orderId = Math.floor(100000 + Math.random() * 900000);
+    $('rt').textContent = '✅ Заказ #' + orderId + ' успешно оплачен!';
+    tg.HapticFeedback.notificationOccurred('success');
+    
+    if(T == 'codes' || T == 'uc') {
+      let fakeCode = 'UC-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+      $('rd').textContent = 'Ваш цифровой товар / код выдано (нажмите, чтобы скопировать):';
+      $('rc').style.display = 'block';
+      $('rc').textContent = fakeCode;
+    } else {
+      $('rd').textContent = 'Товар успешно зачислен на ваш аккаунт! Спасибо за покупку в KABAN UC.';
+    }
+  }, 1800);
+}
+
+function copyCode() {
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText($('rc').textContent).then(() => tg.showAlert('Код успешно скопирован в буфер обмена!'));
+  }
+}
+
+// ПРОФИЛЬ
+function goProf() {
+  scr('prof', 'prof');
+  const n = (user.first_name || 'Игрок');
+  $('pn').textContent = n;
+  $('pu').textContent = user.username ? '@' + user.username : 'ID: ' + user.id;
+  $('pid2').textContent = user.id || '1234567';
+  $('av').innerHTML = user.photo_url ? `<img src="${esc(user.photo_url)}">` : esc(n[0] || 'K');
+  
+  $('preg').textContent = ME.reg;
+  $('pord').textContent = ME.orders;
+  $('pspent').textContent = ME.spent + ' ₽';
+  $('pbal').textContent = ME.balance + ' ₽';
+  $('pdis').textContent = ME.discount + '%';
+}
+
+// АКТИВАЦИЯ ПРОМОКОДА
+function usePromo() {
+  let code = $('promo').value.trim().toUpperCase();
+  let perr = $('perr');
+  if(!code) { perr.textContent = 'Введите промокод'; return; }
+  
+  if(code === 'KABAN' || code === 'UC2026' || code === 'START') {
+    ME.discount = 10;
+    saveMe();
+    perr.style.color = 'var(--green)';
+    perr.textContent = '🎉 Промокод активирован! Скидка 10% применена ко всем товарам.';
+    $('pdis').textContent = ME.discount + '%';
+    $('promo').value = '';
+  } else if(code === 'BONUS50') {
+    ME.balance += 50;
+    saveMe();
+    perr.style.color = 'var(--green)';
+    perr.textContent = '🎁 Бонус 50 ₽ зачислен на ваш баланс!';
+    $('pbal').textContent = ME.balance + ' ₽';
+    $('promo').value = '';
+  } else {
+    perr.style.color = '#ff7b84';
+    perr.textContent = '❌ Неверный или просроченный промокод';
+  }
+}
+
+// РЕФЕРАЛЫ
+function goRef() {
+  scr('ref', 'ref');
+  $('rp').textContent = ME.percent;
+  $('rn').textContent = ME.refs;
+  $('re').textContent = ME.earned + ' ₽';
+  $('rb').textContent = ME.balance + ' ₽';
+  let refLink = 'https://t.me/kaban_uc_bot?start=ref_' + (user.id || 1234567);
+  $('rl').textContent = refLink;
+}
+
+function share() {
+  let refLink = 'https://t.me/kaban_uc_bot?start=ref_' + (user.id || 1234567);
+  tg.openTelegramLink('https://t.me/share/url?url=' + encodeURIComponent(refLink) + '&text=' + encodeURIComponent('🔥 Пополняй UC для PUBG Mobile и покупай Telegram Stars со скидкой в KABAN UC!'));
+}
+
+function copyRef() {
+  let refLink = 'https://t.me/kaban_uc_bot?start=ref_' + (user.id || 1234567);
+  if(navigator.clipboard) {
+    navigator.clipboard.writeText(refLink).then(() => tg.showAlert('Реферальная ссылка скопирована!'));
+  } else {
+    tg.showAlert(refLink);
+  }
+}
+
+// РЕАЛЬНЫЕ ОТЗЫВЫ (Сохранение в localStorage)
+let rate_ = 5;
+function drawStars() {
+  $('stars').innerHTML = [1,2,3,4,5].map(n => `<span class="${n <= rate_ ? 'on' : ''}" onclick="rate_=${n};drawStars()">⭐</span>`).join('');
+}
+
+let REAL_REVIEWS = JSON.parse(localStorage.getItem('kaban_reviews') || '[]');
+
+function goRev() {
+  scr('rev', 'rev');
+  drawStars();
+  $('rerr').textContent = '';
+  
+  if(REAL_REVIEWS.length === 0) {
+    $('avg').textContent = '—';
+    $('cnt').textContent = 'Пока нет отзывов — станьте первым!';
+    $('rlist').innerHTML = '';
+  } else {
+    let sum = REAL_REVIEWS.reduce((acc, r) => acc + r.rating, 0);
+    $('avg').textContent = (sum / REAL_REVIEWS.length).toFixed(1);
+    $('cnt').textContent = 'Отзывов: ' + REAL_REVIEWS.length;
+    $('rlist').innerHTML = REAL_REVIEWS.map(r => `
+      <div class="box rv" style="margin-top:10px">
+        <b>${'⭐'.repeat(r.rating)} ${esc(r.name)}</b>
+        <small>${esc(r.ts)}</small>
+        <p>${esc(r.text)}</p>
+      </div>
+    `).join('');
+  }
+}
+
+function sendRev() {
+  const t = $('rtxt').value.trim();
+  if(t.length < 5) {
+    $('rerr').style.color = '#ff7b84';
+    $('rerr').textContent = 'Отзыв должен содержать не менее 5 символов';
+    return;
+  }
+  REAL_REVIEWS.unshift({
+    name: user.first_name || 'Покупатель',
+    rating: rate_,
+    ts: 'Только что',
+    text: t
+  });
+  localStorage.setItem('kaban_reviews', JSON.stringify(REAL_REVIEWS));
+  $('rtxt').value = '';
+  goRev();
+  $('rerr').style.color = 'var(--green)';
+  $('rerr').textContent = 'Спасибо за ваш отзыв! ❤️';
+}
+
+// Автооткрытие вкладки, если передана в URL
+const st = new URLSearchParams(location.search).get('s');
+if(SECS[st]) openSec(st);
+</script>
+</body>
+</html>
