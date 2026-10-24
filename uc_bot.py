@@ -28,8 +28,17 @@ CARD_DETAILS = ""            # реквизиты для оплаты перев
 SUPPLIER_MAP = {}            # наш товар -> товар поставщика
 # =============================================
  
-VERSION = "6.1"
+VERSION = "6.2"
 HERE = Path(__file__).resolve().parent
+
+# Жестко указываем текущую папку, где лежит uc_bot.py и index.html
+WEBDIR = HERE
+if not (WEBDIR / "index.html").exists() and (Path.cwd() / "index.html").exists():
+    WEBDIR = Path.cwd()
+
+PHOTO = {}
+API_URL = PUBLIC_URL.rstrip("/")
+WEBAPP = (WEBAPP_URL or PUBLIC_URL).rstrip("/") + "/"
 
 # Автоматический поиск папки с файлами Mini App (index.html, banner.jpg, catalog.json)
 WEBDIR = next((d for d in (HERE, HERE / "webapp", Path.cwd(), Path.cwd() / "webapp") if (d / "index.html").exists()), HERE)
