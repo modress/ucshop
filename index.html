@@ -129,6 +129,10 @@ input,textarea,button{font-family:inherit}
 @media(max-width:600px){.hero,.big,.pack,.row,.box,.tabs,.sheet,.nav,.cta,.how div,.chips span{backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%)}.orbs i{width:260px;height:260px}}
 @media(max-width:480px){.logo{font-size:42px}.logo b{font-size:54px;letter-spacing:11px;padding-left:11px}.grid{gap:8px}.pack{padding:16px 12px}.nav div{font-size:12.5px;padding:11px 4px}.cta{padding:22px 18px}.how div{font-size:13px;padding:12px}.sheet .nm b{font-size:24px}}
 @media(max-width:340px){.nav div{font-size:11.5px}.grid{grid-template-columns:1fr}}
+.pack.m{min-height:56px;padding:15px 8px;text-align:center;border-radius:20px}
+.mini{display:flex;justify-content:center;align-items:center;gap:9px;font-size:17px;font-weight:800;white-space:nowrap}.mini i{font-style:normal;opacity:.4}.mini b:last-child{color:#d4e8ff}
+.pack.m .tag{top:-7px;right:10px;font-size:9px;padding:2px 8px}
+@media(max-width:360px){.mini{font-size:15px;gap:6px}}
 </style></head><body>
 <div class="orbs"><i></i><i></i><i></i><i></i><i></i><u></u><u></u><u></u></div>
 
@@ -190,7 +194,7 @@ input,textarea,button{font-family:inherit}
 <script>
 /* Заглушка Telegram WebApp для предпросмотра вне Telegram */
 if(!window.Telegram){const n=()=>{};window.Telegram={WebApp:{ready:n,expand:n,setHeaderColor:n,setBackgroundColor:n,close:n,openInvoice:n,initData:'',initDataUnsafe:{user:{id:1,first_name:'Гость'}},BackButton:{show:n,hide:n,onClick:n},HapticFeedback:{impactOccurred:n,notificationOccurred:n},openTelegramLink:u=>window.open(u,'_blank'),showAlert:t=>alert(t)}}}
-const DEMO={"uc": [{"id": "uc60", "title": "60 UC", "rub": 84}, {"id": "uc325", "title": "325 UC", "rub": 416}, {"id": "uc660", "title": "660 UC", "rub": 831, "tag": "ХИТ"}, {"id": "uc1800", "title": "1800 UC", "rub": 2076}, {"id": "uc3850", "title": "3850 UC", "rub": 4151, "tag": "ВЫГОДНО"}, {"id": "uc8100", "title": "8100 UC", "rub": 8278}], "plus": [{"id": "pl1", "title": "Plus · 1 месяц", "rub": 450}, {"id": "pl3", "title": "Plus · 3 месяца", "rub": 1250, "tag": "ВЫГОДНО"}], "codes": [{"id": "cd60", "title": "Код 60 UC", "rub": 84}, {"id": "cd325", "title": "Код 325 UC", "rub": 416}, {"id": "cd660", "title": "Код 660 UC", "rub": 831}, {"id": "cd1800", "title": "Код 1800 UC", "rub": 2076}]};
+const DEMO={"uc": [{"id": "uc60", "title": "60 UC", "rub": 81}, {"id": "uc120", "title": "120 UC", "rub": 162}, {"id": "uc180", "title": "180 UC", "rub": 243}, {"id": "uc240", "title": "240 UC", "rub": 323}, {"id": "uc325", "title": "325 UC", "rub": 412}, {"id": "uc385", "title": "385 UC", "rub": 492}, {"id": "uc445", "title": "445 UC", "rub": 573}, {"id": "uc505", "title": "505 UC", "rub": 653}, {"id": "uc565", "title": "565 UC", "rub": 734}, {"id": "uc660", "title": "660 UC", "rub": 819, "tag": "ХИТ"}, {"id": "uc720", "title": "720 UC", "rub": 899}, {"id": "uc780", "title": "780 UC", "rub": 979}, {"id": "uc985", "title": "985 UC", "rub": 1230}, {"id": "uc1320", "title": "1320 UC", "rub": 1637}, {"id": "uc1800", "title": "1800 UC", "rub": 2035}, {"id": "uc1920", "title": "1920 UC", "rub": 2196}, {"id": "uc2460", "title": "2460 UC", "rub": 2853}], "plus": [{"id": "pl1", "title": "Plus · 1 месяц", "rub": 450}, {"id": "pl3", "title": "Plus · 3 месяца", "rub": 1250, "tag": "ВЫГОДНО"}], "codes": [{"id": "cd60", "title": "Код 60 UC", "rub": 81}, {"id": "cd325", "title": "Код 325 UC", "rub": 412}, {"id": "cd660", "title": "Код 660 UC", "rub": 819}, {"id": "cd1800", "title": "Код 1800 UC", "rub": 2035}]};
 const tg=Telegram.WebApp;tg.ready();tg.expand();tg.setHeaderColor('#030a1c');tg.setBackgroundColor('#030a1c');
 const P=new URLSearchParams(location.search),BOT=P.get('bot')||'',API=(P.get('api')||'').replace(/\/$/,'');
 const HDR={'Content-Type':'application/json','ngrok-skip-browser-warning':'1'};
@@ -224,7 +228,7 @@ async function openSec(s,tab){if(!CAT){CAT={};for(const u of ['catalog.json',API
   S=s;T=tab||SECS[s].tabs[0][0];$('secname').textContent=SECS[s].n;scr('sec','home');draw()}
 function draw(){sel=null;$('sheet').classList.remove('on');
   $('tabs').innerHTML=SECS[S].tabs.map(t=>`<div class="tab ${t[0]==T?'on':''}" onclick="T='${t[0]}';draw()">${t[1]}</div>`).join('');
-  const it=CAT[T]||[];$('grid').innerHTML=it.length?it.map((p,i)=>`<div class="pack" style="animation-delay:${i*70}ms" onclick="pick(${i})">${p.tag?`<div class="tag">${esc(p.tag)}</div>`:''}<div class="t">${esc(p.title)}</div><div class="p">${p.rub} ₽</div></div>`).join(''):'<div class="note">Товары пока не загружены. Проверь связь с сервером.</div>'}
+  const it=CAT[T]||[];$('grid').innerHTML=it.length?it.map((p,i)=>`<div class="pack${T=='uc'?' m':''}" style="animation-delay:${Math.min(i*40,600)}ms" onclick="pick(${i})">${p.tag?`<div class="tag">${esc(p.tag)}</div>`:''}${T=='uc'?`<div class="mini"><b>${esc(p.title.replace(/ UC$/,''))}</b><i>|</i><b>${p.rub} ₽</b></div>`:`<div class="t">${esc(p.title)}</div><div class="p">${p.rub} ₽</div>`}</div>`).join(''):'<div class="note">Товары пока не загружены. Проверь связь с сервером.</div>'}
 const fin=p=>Math.max(1,Math.round(p.rub*(100-((ME&&ME.discount)||0))/100));
 async function pick(i){await bootP;if(!ME&&!OFFLINE)await loadMe();sel=CAT[T][i];tg.HapticFeedback.impactOccurred('light');
   document.querySelectorAll('.pack').forEach((e,k)=>e.classList.toggle('sel',k==i));
